@@ -1,5 +1,8 @@
 package objects;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * ******************************
  * Project: ritual
@@ -8,5 +11,7 @@ package objects;
  * ******************************
  **/
 public class Player extends Creature {
+    List<Spell> spells = new LinkedList<>();
+
 
 }

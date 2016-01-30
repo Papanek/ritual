@@ -1,12 +1,7 @@
 package interfaces;
 
 /**
- * ******************************
- * Project: ritual
- * Creator: Daniel Papanek
- * Date :   1/29/2016
- * ******************************
- **/
+ * Created by brewi on 2016-01-29.
+ */
 public interface Movable {
-    void move();
 }
