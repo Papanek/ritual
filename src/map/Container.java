@@ -1,6 +1,7 @@
 package map;
 
 import interfaces.Drawable;
+import objects.Player;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,6 +22,7 @@ import java.util.LinkedList;
 public class Container extends Canvas implements Runnable, MouseListener, KeyListener{
     private LinkedList<Drawable> creatures;
     private JFrame frame;
+    private Player p;
     public Container(int width, int height){
         frame = new JFrame("Game");
         frame.setSize(width,height);
@@ -29,8 +31,9 @@ public class Container extends Canvas implements Runnable, MouseListener, KeyLis
         frame.setResizable(false);
         frame.add(this);
         frame.setVisible(true);
-
+        p = new Player();
         creatures = new LinkedList<>();
+        creatures.add(p);
         addKeyListener(this);
         run();
     };
@@ -70,8 +73,6 @@ public class Container extends Canvas implements Runnable, MouseListener, KeyLis
     private void drawBackground(Graphics2D g){
         g.setColor(Color.CYAN);
         g.fillRect(0,0,800,600);
-        g.setColor(Color.black);
-        g.drawOval(10,10,10,10);
     }
 
     @Override
@@ -108,15 +109,19 @@ public class Container extends Canvas implements Runnable, MouseListener, KeyLis
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode()== KeyEvent.VK_W){
             System.out.println("Up");
+
         }
         else if(e.getKeyCode() == KeyEvent.VK_A){
             System.out.println("Left");
+
         }
         else if(e.getKeyCode() == KeyEvent.VK_S){
             System.out.println("Down");
+
         }
         else if(e.getKeyCode() == KeyEvent.VK_D){
             System.out.println("Right");
+
         }
     }
 
