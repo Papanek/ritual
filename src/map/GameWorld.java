@@ -79,7 +79,7 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
 
     private void moveEnemies(){
         for(Enemy e : enemies){
-            e.moveTo(p,new Summoner(10,10,10,10));
+            e.moveTo(p, new Summoner(10,10,10,10));
             e.move();
         }
     }
@@ -88,19 +88,19 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode()== KeyEvent.VK_W){
             System.out.println("Up");
-            p.moveUp();
+            p.moveUp(true);
         }
         else if(e.getKeyCode() == KeyEvent.VK_A){
             System.out.println("Left");
-            p.moveLeft();
+            p.moveLeft(true);
         }
         else if(e.getKeyCode() == KeyEvent.VK_S){
             System.out.println("Down");
-            p.moveDown();
+            p.moveDown(true);
         }
         else if(e.getKeyCode() == KeyEvent.VK_D){
             System.out.println("Right");
-            p.moveRight();
+            p.moveRight(true);
         }
     }
 
@@ -108,19 +108,19 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
     public void keyReleased(KeyEvent e) {
         if(e.getKeyCode()== KeyEvent.VK_W){
             System.out.println("not moving up");
-            p.setUp();
+            p.moveUp(false);
         }
         else if(e.getKeyCode() == KeyEvent.VK_A){
             System.out.println("not moving left");
-            p.setLeft();
+            p.moveLeft(false);
         }
         else if(e.getKeyCode() == KeyEvent.VK_S){
             System.out.println("not moving Down");
-            p.setDown();
+            p.moveDown(false);
         }
         else if(e.getKeyCode() == KeyEvent.VK_D){
             System.out.println("not moving Right");
-            p.setRight();
+            p.moveRight(false);
         }
     }
 
