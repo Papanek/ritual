@@ -41,7 +41,7 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
             repaint();
 
             try {
-                Thread.sleep(32);
+                Thread.sleep(10);
             } catch (InterruptedException e){
                 System.out.println("Sleep Interrupted");
             }

@@ -17,7 +17,7 @@ import java.util.List;
 public class Player extends Creature implements Movable, Controllable{
     List<Spell> spells = new LinkedList<>();
     boolean movingUP = false, movingDown = false, movingLeft = false, movingRight = false;
-    private float SPEED = .3f;
+    private float SPEED = .06f;
 
     public Player(){}
 
@@ -25,7 +25,7 @@ public class Player extends Creature implements Movable, Controllable{
     public void draw(Graphics2D g) {
         g.setColor(Color.black);
         g.translate(x,y);
-        g.drawOval(0,0,10,10);
+        g.drawOval(0,0,100,100);
     }
 
     public void setUp(){
