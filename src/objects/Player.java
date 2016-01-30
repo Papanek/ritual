@@ -17,7 +17,7 @@ import java.util.List;
 public class Player extends Creature implements Movable, Controllable{
     List<Spell> spells = new LinkedList<>();
     boolean movingUP = false, movingDown = false, movingLeft = false, movingRight = false;
-    private float SPEED = .06f;
+    private float SPEED = .08f;
 
     public Player(int x, int y, int health, int maxSpeed) {
         super(x, y, health, maxSpeed);
@@ -32,47 +32,65 @@ public class Player extends Creature implements Movable, Controllable{
 
     public void setUp(){
         movingUP = !movingUP;
+        speedUp = 0;
     }
 
     public void setDown(){
         movingDown = !movingDown;
+        speedDown = 0;
     }
 
     public void setLeft(){
         movingLeft = !movingLeft;
+        speedLeft = 0;
     }
 
     public void setRight(){
         movingRight = !movingRight;
+        speedRight = 0;
     }
 
     @Override
     public void move() {
-        this.x += this.speedX;
-        this.y += this.speedY;
+        if(movingUP)this.y -= this.speedUp;
+        if(movingDown)this.y += this.speedDown;
+        if(movingLeft)this.x -= this.speedLeft;
+        if(movingRight)this.x += this.speedRight;
     }
 
     @Override
     public void moveUp() {
         movingUP = true;
-        speedY -= SPEED;
+        setDown(); setLeft(); setRight();
+        if(speedUp < maxSpeed) {
+            speedUp += SPEED;
+        }
     }
 
     @Override
     public void moveDown() {
-        movingUP = true;
-        speedY += SPEED;
+        movingDown = true;
+        setLeft(); setRight(); setUp();
+        if(speedDown < maxSpeed) {
+            speedDown += SPEED;
+        }
     }
 
     @Override
     public void moveLeft() {
-        movingUP = true;
-        speedX -= SPEED;
+        movingLeft = true;
+        setRight(); setUp(); setDown();
+        if(speedLeft < maxSpeed) {
+            speedLeft += SPEED;
+        }
     }
 
     @Override
     public void moveRight() {
-        movingUP = true;
-        speedX += SPEED;
+        movingRight = true;
+        setLeft(); setUp(); setDown();
+        if(speedRight < maxSpeed) {
+            speedRight += SPEED;
+        }
     }
 }
