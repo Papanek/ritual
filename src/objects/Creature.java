@@ -1,6 +1,7 @@
 package objects;
 
 import interfaces.Drawable;
+import interfaces.Movable;
 
 /**
  * ******************************
@@ -20,6 +21,7 @@ public abstract class Creature implements Drawable {
         this.y = y;
         this.maxSpeed = maxSpeed;
     }
+
 
     public int getHealth() {
         return health;
