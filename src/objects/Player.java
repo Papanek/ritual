@@ -28,4 +28,24 @@ public class Player extends Creature implements Movable{
     public void move() {
 
     }
+
+    @Override
+    public void moveRight() {
+        this.x++;
+    }
+
+    @Override
+    public void moveLeft() {
+        this.x--;
+    }
+
+    @Override
+    public void moveDown() {
+        this.y--;
+    }
+
+    @Override
+    public void moveUp() {
+        this.y++;
+    }
 }

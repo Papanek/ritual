@@ -8,5 +8,8 @@ package interfaces;
  * ******************************
  **/
 public interface Movable {
-    public void move();
+    public void moveRight();
+    public void moveLeft();
+    public void moveDown();
+    public void moveUp();
 }
