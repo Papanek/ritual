@@ -53,9 +53,6 @@ public class Container extends Canvas implements Runnable, MouseListener {
         g.fillRect(0,0,800,600);
         g.setColor(Color.black);
         g.drawOval(10,10+k++,10,10);
-        if(k>600){
-            k=0;
-        }
     }
 
     @Override
