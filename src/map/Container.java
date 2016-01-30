@@ -2,6 +2,8 @@ package map;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
@@ -13,7 +15,7 @@ import java.awt.image.BufferStrategy;
  * Date :   1/29/2016
  * ******************************
  **/
-public class Container extends Canvas implements Runnable, MouseListener {
+public class Container extends Canvas implements Runnable, MouseListener, KeyListener{
     private int k =0;
     private JFrame frame;
     public Container(int width, int height){
@@ -25,6 +27,7 @@ public class Container extends Canvas implements Runnable, MouseListener {
         frame.add(this);
         frame.setVisible(true);
         run();
+        System.out.println("init");
     };
 
     @Override
@@ -77,6 +80,32 @@ public class Container extends Canvas implements Runnable, MouseListener {
 
     @Override
     public void mouseExited(MouseEvent e) {
+
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode()== KeyEvent.VK_W){
+            System.out.println("Up");
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_A){
+            System.out.println("Left");
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_S){
+            System.out.println("Right");
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_D){
+            System.out.println("Down");
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
 
     }
 }
