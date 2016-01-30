@@ -31,6 +31,7 @@ public class Container extends Canvas implements Runnable, MouseListener, KeyLis
         frame.setVisible(true);
 
         creatures = new LinkedList<>();
+        addKeyListener(this);
         run();
     };
 
@@ -69,6 +70,8 @@ public class Container extends Canvas implements Runnable, MouseListener, KeyLis
     private void drawBackground(Graphics2D g){
         g.setColor(Color.CYAN);
         g.fillRect(0,0,800,600);
+        g.setColor(Color.black);
+        g.drawOval(10,10,10,10);
     }
 
     @Override
@@ -110,10 +113,10 @@ public class Container extends Canvas implements Runnable, MouseListener, KeyLis
             System.out.println("Left");
         }
         else if(e.getKeyCode() == KeyEvent.VK_S){
-            System.out.println("Right");
+            System.out.println("Down");
         }
         else if(e.getKeyCode() == KeyEvent.VK_D){
-            System.out.println("Down");
+            System.out.println("Right");
         }
     }
 
