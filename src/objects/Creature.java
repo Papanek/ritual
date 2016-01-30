@@ -1,5 +1,8 @@
 package objects;
 
+import interfaces.Drawable;
+import interfaces.Movable;
+
 /**
  * ******************************
  * Project: ritual
@@ -7,7 +10,7 @@ package objects;
  * Date :   1/29/2016
  * ******************************
  **/
-public class Creature {
+public abstract class Creature implements Drawable {
     protected int health;
     protected float x, y;
     protected float speedX, speedY;

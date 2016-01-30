@@ -1,8 +1,12 @@
 package interfaces;
 
 /**
- * Created by brewi on 2016-01-29.
- */
+ * ******************************
+ * Project: ritual
+ * Creator: Daniel Papanek
+ * Date :   1/29/2016
+ * ******************************
+ **/
 public interface Movable {
-
+    public void move();
 }
