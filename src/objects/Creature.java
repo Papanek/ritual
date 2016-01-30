@@ -15,5 +15,4 @@ public abstract class Creature implements Drawable {
     protected float speedX, speedY;
     protected float maxSpeed = 1.6f;
 
-    
 }
