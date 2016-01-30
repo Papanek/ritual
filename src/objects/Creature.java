@@ -9,4 +9,7 @@ package objects;
  **/
 public class Creature {
     protected int health;
+    protected float x, y;
+    protected float speedX, speedY;
+
 }
