@@ -13,5 +13,27 @@ public abstract class Creature implements Drawable {
     protected int health;
     protected double x, y;
     protected float speedX, speedY;
-    protected float maxSpeed = 1.6f;
+    protected float maxSpeed;
+    public Creature(int x, int y, int health, int maxSpeed){
+        this.health = health;
+        this.x = x;
+        this.y = y;
+        this.maxSpeed = maxSpeed;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public void takeDamage(int damage){
+        this.health -= damage;
+    }
 }

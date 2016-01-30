@@ -19,7 +19,9 @@ public class Player extends Creature implements Movable, Controllable{
     boolean movingUP = false, movingDown = false, movingLeft = false, movingRight = false;
     private float SPEED = .06f;
 
-    public Player(){}
+    public Player(int x, int y, int health, int maxSpeed) {
+        super(x, y, health, maxSpeed);
+    }
 
     @Override
     public void draw(Graphics2D g) {

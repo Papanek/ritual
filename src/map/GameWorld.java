@@ -28,7 +28,7 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
     private Player p;
     public GameWorld(int width, int height){
         image = new BufferedImage(width,height, BufferedImage.TYPE_INT_RGB);
-        p = new Player();
+        p = new Player(10,10,10,2);
         creatures = new LinkedList<>();
         creatures.add(p);
         addKeyListener(this);

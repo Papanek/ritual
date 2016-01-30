@@ -11,12 +11,9 @@ public class Summoner extends Creature{
 
     ArrayList<Spell> spells = new ArrayList<>();
 
-    public Summoner(){
-    	super();
-    	this.speedX = 0;
-    	this.speedY = 0;
-    	this.maxSpeed = 0;
-    }
+	public Summoner(int x, int y, int health, int maxSpeed) {
+		super(x, y, health, maxSpeed);
+	}
 
 	@Override
 	public void draw(Graphics2D g) {

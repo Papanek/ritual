@@ -13,8 +13,8 @@ import java.awt.*;
  **/
 public class Enemy extends Creature implements Movable {
 
-    public Enemy(){
-
+    public Enemy(int x, int y, int health, int maxSpeed) {
+        super(x, y, health, maxSpeed);
     }
 
     @Override
