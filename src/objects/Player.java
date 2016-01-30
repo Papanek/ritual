@@ -1,5 +1,7 @@
 package objects;
 
+import interfaces.Movable;
+
 import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,7 +13,7 @@ import java.util.List;
  * Date :   1/29/2016
  * ******************************
  **/
-public class Player extends Creature {
+public class Player extends Creature implements Movable{
     List<Spell> spells = new LinkedList<>();
 
     public Player(){}

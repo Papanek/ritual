@@ -1,7 +1,6 @@
 package map;
 
 import interfaces.Drawable;
-import objects.Player;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,10 +17,9 @@ import java.util.LinkedList;
  * ******************************
  **/
 public class Container extends Canvas implements Runnable, MouseListener {
-    private JFrame frame;
     private LinkedList<Drawable> creatures = new LinkedList<>();
     public Container(int width, int height){
-        frame = new JFrame("Game");
+        JFrame frame = new JFrame("Game");
         frame.setSize(width,height);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
