@@ -16,7 +16,8 @@ import java.util.List;
  **/
 public class Player extends Creature implements Movable, Controllable{
     List<Spell> spells = new LinkedList<>();
-    boolean moving = false;
+    boolean movingX = false;
+    boolean movingY = false;
 
     public Player(){}
 
@@ -26,19 +27,54 @@ public class Player extends Creature implements Movable, Controllable{
         g.drawOval((int)this.x,(int)this.y,10,10);
     }
 
+    public void setMovingX(){
+        movingX = !movingX;
+    }
+
+    public void setMovingY(){
+        movingY = !movingY;
+    }
+
     @Override
     public void move() {
-        this.x += speedX;
-        this.y += speedY;
+        if(movingX) {
+            this.x += speedX;
+        } else {
+            speedX = 0;
+        }
+        if(movingY){
+            this.y += speedY;
+        }else {
+            speedY = 0;
+        }
     }
 
     @Override
-    public void moveX() {
-
+    public void moveX(String x) {
+        if(x.equals("inc")){
+            setMovingX();
+            if(Math.abs(speedX) < maxSpeed){
+                speedX += 0.3;
+            }
+        }
+        else if(x.equals("dec")){
+            if(Math.abs(speedX) < maxSpeed){
+                speedX -= 0.3;
+            }
+        }
     }
 
     @Override
-    public void moveY() {
-
+    public void moveY(String x) {
+        if(x.equals("inc")){
+            if(Math.abs(speedY) < maxSpeed){
+                speedY += 0.3;
+            }
+        }
+        else if(x.equals("dec")){
+            if(Math.abs(speedY) < maxSpeed) {
+                speedY -= 0.3f;
+            }
+        }
     }
 }

@@ -47,6 +47,7 @@ public class Container extends Canvas implements Runnable, MouseListener, KeyLis
                 continue;
             }
             Graphics2D g = (Graphics2D) buf.getDrawGraphics();
+            p.move();
             render(g);
             buf.show();
 
@@ -62,6 +63,7 @@ public class Container extends Canvas implements Runnable, MouseListener, KeyLis
     private void render(Graphics2D g){
         drawBackground(g);
         drawCreatures(g);
+
     }
 
     private void drawCreatures(Graphics2D g){
@@ -102,31 +104,49 @@ public class Container extends Canvas implements Runnable, MouseListener, KeyLis
 
     @Override
     public void keyTyped(KeyEvent e) {
-
+        if(e.getKeyCode()== KeyEvent.VK_W){
+            System.out.println("Up");
+            p.setMovingY();
+            p.moveY("dec");
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_A){
+            System.out.println("Left");
+            p.setMovingX();
+            p.moveX("dec");
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_S){
+            System.out.println("Down");
+            p.setMovingY();
+            p.moveY("inc");
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_D){
+            System.out.println("Right");
+            p.moveX("inc");
+        }
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if(e.getKeyCode()== KeyEvent.VK_W){
-            System.out.println("Up");
 
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_A){
-            System.out.println("Left");
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_S){
-            System.out.println("Down");
-
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_D){
-            System.out.println("Right");
-
-        }
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-
+        if(e.getKeyCode()== KeyEvent.VK_W){
+            p.setMovingY();
+            System.out.println("not moving up");
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_A){
+            System.out.println("not moving left");
+            p.setMovingX();
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_S){
+            System.out.println("not moving Down");
+            p.setMovingY();
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_D){
+            System.out.println("not moving Right");
+            p.setMovingX();
+        }
     }
 }
