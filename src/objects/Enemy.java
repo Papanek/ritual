@@ -38,22 +38,30 @@ public class Enemy extends Creature implements Movable, AI {
             speedX += speed;
             if(speedX>maxSpeed){
                 speedX=maxSpeed;
+            }else if(speedX < 0){
+            	speedX += speed;
             }
         } else {
             speedX -= speed;
             if(speedX<-maxSpeed){
                 speedX = -maxSpeed;
+            }else if(speedX > 0){
+            	speedX -= speed;
             }
         }
         if(p.getY()>y){
             speedY += speed;
             if(speedY>maxSpeed){
                 speedY=maxSpeed;
+            }else if(speedY < 0){
+            	speedY += speed;
             }
         } else {
             speedY -= speed;
             if(speedY<-maxSpeed){
                 speedY = -maxSpeed;
+            }else if (speedY > 0){
+            	speedY -= speed;
             }
         }
     }
