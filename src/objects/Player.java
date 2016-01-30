@@ -25,11 +25,6 @@ public class Player extends Creature implements Movable{
     }
 
     @Override
-    public void move() {
-
-    }
-
-    @Override
     public void moveRight() {
         this.x++;
     }

@@ -14,4 +14,5 @@ public abstract class Creature implements Drawable {
     protected float x, y;
     protected float speedX, speedY;
 
+    
 }
