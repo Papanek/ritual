@@ -1,7 +1,6 @@
 package objects;
 
 import interfaces.Drawable;
-import interfaces.Movable;
 
 /**
  * ******************************

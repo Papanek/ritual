@@ -1,5 +1,7 @@
 package map;
 
+import interfaces.Drawable;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -7,6 +9,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
+import java.util.LinkedList;
 
 /**
  * ******************************
@@ -16,7 +19,7 @@ import java.awt.image.BufferStrategy;
  * ******************************
  **/
 public class Container extends Canvas implements Runnable, MouseListener, KeyListener{
-    private int k =0;
+    private LinkedList<Drawable> creatures;
     private JFrame frame;
     public Container(int width, int height){
         frame = new JFrame("Game");
@@ -26,8 +29,9 @@ public class Container extends Canvas implements Runnable, MouseListener, KeyLis
         frame.setResizable(false);
         frame.add(this);
         frame.setVisible(true);
+
+        creatures = new LinkedList<>();
         run();
-        System.out.println("init");
     };
 
     @Override
@@ -52,10 +56,19 @@ public class Container extends Canvas implements Runnable, MouseListener, KeyLis
     }
 
     private void render(Graphics2D g){
+        drawBackground(g);
+        drawCreatures(g);
+    }
+
+    private void drawCreatures(Graphics2D g){
+        for(Drawable d : creatures){
+            d.draw(g);
+        }
+    }
+
+    private void drawBackground(Graphics2D g){
         g.setColor(Color.CYAN);
         g.fillRect(0,0,800,600);
-        g.setColor(Color.black);
-        g.drawOval(10,10+k++,10,10);
     }
 
     @Override
