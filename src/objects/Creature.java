@@ -13,6 +13,7 @@ import interfaces.Movable;
 public abstract class Creature implements Drawable {
     protected int health;
     protected double x, y;
+    protected float speedX, speedY;
     protected float speedUp, speedDown, speedLeft, speedRight;
     protected float maxSpeed;
     public Creature(int x, int y, int health, int maxSpeed){
