@@ -16,65 +16,61 @@ import java.util.List;
  **/
 public class Player extends Creature implements Movable, Controllable{
     List<Spell> spells = new LinkedList<>();
-    boolean movingX = false;
-    boolean movingY = false;
+    boolean movingUP = false, movingDown = false, movingLeft = false, movingRight = false;
+    private float SPEED = .3f;
 
     public Player(){}
 
     @Override
     public void draw(Graphics2D g) {
         g.setColor(Color.black);
-        g.drawOval((int)this.x,(int)this.y,10,10);
+        g.translate(x,y);
+        g.drawOval(0,0,10,10);
     }
 
-    public void setMovingX(){
-        movingX = !movingX;
+    public void setUp(){
+        movingUP = !movingUP;
     }
 
-    public void setMovingY(){
-        movingY = !movingY;
+    public void setDown(){
+        movingDown = !movingDown;
+    }
+
+    public void setLeft(){
+        movingLeft = !movingLeft;
+    }
+
+    public void setRight(){
+        movingRight = !movingRight;
     }
 
     @Override
     public void move() {
-        if(movingX) {
-            this.x += speedX;
-        } else {
-            speedX = 0;
-        }
-        if(movingY){
-            this.y += speedY;
-        }else {
-            speedY = 0;
-        }
+        this.x += this.speedX;
+        this.y += this.speedY;
     }
 
     @Override
-    public void moveX(String x) {
-        if(x.equals("inc")){
-            setMovingX();
-            if(Math.abs(speedX) < maxSpeed){
-                speedX += 0.3;
-            }
-        }
-        else if(x.equals("dec")){
-            if(Math.abs(speedX) < maxSpeed){
-                speedX -= 0.3;
-            }
-        }
+    public void moveUp() {
+        movingUP = true;
+        speedY -= SPEED;
     }
 
     @Override
-    public void moveY(String x) {
-        if(x.equals("inc")){
-            if(Math.abs(speedY) < maxSpeed){
-                speedY += 0.3;
-            }
-        }
-        else if(x.equals("dec")){
-            if(Math.abs(speedY) < maxSpeed) {
-                speedY -= 0.3f;
-            }
-        }
+    public void moveDown() {
+        movingUP = true;
+        speedY += SPEED;
+    }
+
+    @Override
+    public void moveLeft() {
+        movingUP = true;
+        speedX -= SPEED;
+    }
+
+    @Override
+    public void moveRight() {
+        movingUP = true;
+        speedX += SPEED;
     }
 }

@@ -11,8 +11,7 @@ import interfaces.Drawable;
  **/
 public abstract class Creature implements Drawable {
     protected int health;
-    protected float x, y;
+    protected double x, y;
     protected float speedX, speedY;
     protected float maxSpeed = 1.6f;
-
 }

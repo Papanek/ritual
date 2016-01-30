@@ -1,7 +1,6 @@
 package objects;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -24,11 +23,4 @@ public class Summoner extends Creature{
 		g.setColor(Color.YELLOW);
 		g.drawOval(40, 50, 10, 10);
 	}
-
-	@Override
-	public void move() {
-		//cannot move
-	}
-
-
 }

@@ -1,6 +1,7 @@
-import map.Container;
+import map.GameWorld;
 
 import javax.swing.*;
+import java.awt.*;
 
 /**
  * ******************************
@@ -11,7 +12,16 @@ import javax.swing.*;
  **/
 public class Driver {
     public static void main(String[] args){
-        Container game = new Container(800,600);
-
+        JFrame frame = new JFrame();
+        GameWorld panel = new GameWorld(800,600);
+        panel.setPreferredSize(new Dimension(800, 600));
+        panel.setFocusable(true);
+        panel.requestFocusInWindow();
+        frame.add(panel);
+        frame.setResizable(false);
+        frame.pack();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+        panel.start();
     }
 }

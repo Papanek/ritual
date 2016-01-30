@@ -10,6 +10,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 
 /**
@@ -19,40 +20,28 @@ import java.util.LinkedList;
  * Date :   1/29/2016
  * ******************************
  **/
-public class Container extends Canvas implements Runnable, MouseListener, KeyListener{
+public class GameWorld extends JPanel implements MouseListener, KeyListener{
     private LinkedList<Drawable> creatures;
-    private JFrame frame;
+
+    BufferedImage image;
+
     private Player p;
-    public Container(int width, int height){
-        frame = new JFrame("Game");
-        frame.setSize(width,height);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
-        frame.add(this);
-        frame.setVisible(true);
+    public GameWorld(int width, int height){
+        image = new BufferedImage(width,height, BufferedImage.TYPE_INT_RGB);
         p = new Player();
         creatures = new LinkedList<>();
         creatures.add(p);
         addKeyListener(this);
-        run();
     };
 
-    @Override
-    public void run() {
+    public void start () {
         while(true){
-            BufferStrategy buf = getBufferStrategy();
-            if(buf==null){
-                createBufferStrategy(3);
-                continue;
-            }
-            Graphics2D g = (Graphics2D) buf.getDrawGraphics();
+
             p.move();
-            render(g);
-            buf.show();
+            repaint();
 
             try {
-                Thread.sleep(10);
+                Thread.sleep(32);
             } catch (InterruptedException e){
                 System.out.println("Sleep Interrupted");
             }
@@ -60,10 +49,15 @@ public class Container extends Canvas implements Runnable, MouseListener, KeyLis
 
     }
 
-    private void render(Graphics2D g){
+    @Override
+    public void paint(Graphics _g){
+        Graphics2D g = image.createGraphics();
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+
         drawBackground(g);
         drawCreatures(g);
-
+        _g.drawImage(image,0,0,null);
     }
 
     private void drawCreatures(Graphics2D g){
@@ -75,6 +69,48 @@ public class Container extends Canvas implements Runnable, MouseListener, KeyLis
     private void drawBackground(Graphics2D g){
         g.setColor(Color.CYAN);
         g.fillRect(0,0,800,600);
+    }
+
+
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if(e.getKeyCode()== KeyEvent.VK_W){
+            System.out.println("Up");
+            p.moveUp();
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_A){
+            System.out.println("Left");
+            p.moveLeft();
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_S){
+            System.out.println("Down");
+            p.moveDown();
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_D){
+            System.out.println("Right");
+            p.moveRight();
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        if(e.getKeyCode()== KeyEvent.VK_W){
+            System.out.println("not moving up");
+            p.setUp();
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_A){
+            System.out.println("not moving left");
+            p.setLeft();
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_S){
+            System.out.println("not moving Down");
+            p.setDown();
+        }
+        else if(e.getKeyCode() == KeyEvent.VK_D){
+            System.out.println("not moving Right");
+            p.setRight();
+        }
     }
 
     @Override
@@ -104,49 +140,6 @@ public class Container extends Canvas implements Runnable, MouseListener, KeyLis
 
     @Override
     public void keyTyped(KeyEvent e) {
-        if(e.getKeyCode()== KeyEvent.VK_W){
-            System.out.println("Up");
-            p.setMovingY();
-            p.moveY("dec");
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_A){
-            System.out.println("Left");
-            p.setMovingX();
-            p.moveX("dec");
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_S){
-            System.out.println("Down");
-            p.setMovingY();
-            p.moveY("inc");
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_D){
-            System.out.println("Right");
-            p.moveX("inc");
-        }
-    }
 
-    @Override
-    public void keyPressed(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        if(e.getKeyCode()== KeyEvent.VK_W){
-            p.setMovingY();
-            System.out.println("not moving up");
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_A){
-            System.out.println("not moving left");
-            p.setMovingX();
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_S){
-            System.out.println("not moving Down");
-            p.setMovingY();
-        }
-        else if(e.getKeyCode() == KeyEvent.VK_D){
-            System.out.println("not moving Right");
-            p.setMovingX();
-        }
     }
 }
