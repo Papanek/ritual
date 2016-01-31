@@ -26,16 +26,15 @@ import java.util.LinkedList;
  **/
 public class GameWorld extends JPanel implements MouseListener, KeyListener{
     private LinkedList<Enemy> enemies;
-    File img = new File("background.png");
-    BufferedImage image;
-
+    File img = new File("resource/background.png");
+    BufferedImage characterImage, backgroundImg;
     private Player p;
     public GameWorld(int width, int height){
         try{
-            BufferedImage in = ImageIO.read(img);
+            backgroundImg = ImageIO.read(img);
         }
-        catch(IOException e){}
-        image = new BufferedImage(width,height, BufferedImage.TYPE_INT_RGB);
+        catch(IOException e){System.out.print("fuck");}
+        characterImage = new BufferedImage(width,height, BufferedImage.TYPE_INT_RGB);
         p = new Player(10,10,10,2);
         enemies = new LinkedList<>();
         for(int i = 0; i<10; i++){
@@ -62,12 +61,12 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
 
     @Override
     public void paint(Graphics _g){
-        Graphics2D g = image.createGraphics();
+        Graphics2D g = characterImage.createGraphics();
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         drawBackground(g);
         drawCreatures(g);
-        _g.drawImage(image,0,0,null);
+        _g.drawImage(characterImage,0,0,null);
         g.dispose();
     }
 
@@ -79,8 +78,7 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
     }
 
     private void drawBackground(Graphics2D g){
-        g.setColor(Color.CYAN);
-        g.fillRect(0,0,800,600);
+        g.drawImage(backgroundImg,0,0,null);
     }
 
     private void moveEnemies(){

@@ -22,7 +22,7 @@ public class Enemy extends Creature implements Movable, AI {
     public void draw(Graphics2D g) {
         g.setColor(Color.RED);
         g.translate(x,y);
-        g.drawOval(0,0,50,50);
+        g.drawRect(0,0,30,30);
         g.translate(-x,-y);
     }
 
