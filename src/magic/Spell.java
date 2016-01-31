@@ -32,7 +32,7 @@ public abstract class Spell implements Drawable, Movable, Collidable, Updatable{
 		try{
 			spellImage= ImageIO.read(img);
 		}
-		catch(IOException e){System.out.print("fuck");}
+		catch(IOException e){System.out.print("spellfuck");}
     }
 
 	public int getDamage(){

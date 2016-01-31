@@ -24,7 +24,7 @@ public class Summoner extends Humanoid {
 		try{
 			characterImage= ImageIO.read(img);
 		}
-		catch(IOException e){System.out.print("fuck");}
+		catch(IOException e){System.out.print("summonerfuck");}
 	}
 
 	@Override

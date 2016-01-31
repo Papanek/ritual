@@ -32,7 +32,7 @@ public class Enemy extends Humanoid implements AI {
         try{
             characterImage= ImageIO.read(img);
         }
-        catch(IOException e){System.out.print("fuck");}
+        catch(IOException e){System.out.print("enemyfuck");}
     }
 
     @Override

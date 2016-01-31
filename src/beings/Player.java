@@ -55,7 +55,7 @@ public class Player extends Humanoid implements Controllable{
 		try{
 			characterImage= ImageIO.read(img);
 		}
-		catch(IOException e){System.out.print("fuck");}
+		catch(IOException e){System.out.print("playerfuck");}
 	}
 
 	@Override
@@ -146,11 +146,10 @@ public class Player extends Humanoid implements Controllable{
 		} else if(speedDown>0){
 			img=new File(PLAYER_DOWN);
 		}
-
 		try{
 			characterImage= ImageIO.read(img);
 		}
-		catch(IOException e){System.out.print("fuck");}
+		catch(IOException e){System.out.print("playerfuck");}
 	}
 
 	public void move(char dir, boolean b){
