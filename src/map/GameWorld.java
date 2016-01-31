@@ -2,9 +2,10 @@ package map;
 
 import interfaces.Drawable;
 import beings.*;
+import jdk.nashorn.internal.scripts.JO;
 import magic.Spell;
 import util.CollisionDetector;
-
+import util.Driver;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -50,13 +51,15 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
             enemies.add(new Enemy(100*i,100*i,2,Enemy.SPIDER));
         }
 
-
         addKeyListener(this);
         addMouseListener(this);
     }
 
     public void start () {
         while(running){
+            if(!player.isAlive()){
+                gameOver(true);
+            }
             player.update();
             updateEnemies();
             updateSpells();
@@ -74,6 +77,20 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
 
     }
 
+    private void restartGame(){
+        player = new Player(10,10,2);
+        summoner = new Summoner(375, 275, 0);
+        enemies = new LinkedList<>();
+        spells = new LinkedList<>();
+
+        for(int i = 0; i<20; i++){
+            enemies.add(new Enemy(100*i,100*i,2,Enemy.SPIDER));
+        }
+
+        running = true;
+        start();
+    }
+
     @Override
     public void paint(Graphics _g){
         Graphics2D g = characterImage.createGraphics();
@@ -87,10 +104,21 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
         g.dispose();
     }
 
-    private void drawCreatures(Graphics2D g){
-        if(!player.isAlive()){
-            running = false;
+    private void gameOver(boolean over){
+        if(over){
+            running=false;
+            int output = JOptionPane.showConfirmDialog(null,"Game over, would you like to restart the game?","You Lost",JOptionPane.YES_NO_OPTION);
+            if(output == JOptionPane.YES_OPTION){
+                restartGame();
+            }
+            else if(output == JOptionPane.NO_OPTION){
+                Driver.closeApp();
+            }
         }
+    }
+
+    private void drawCreatures(Graphics2D g){
+
         player.draw(g);
         for(Drawable d : enemies){
             d.draw(g);

@@ -1,3 +1,5 @@
+package util;
+
 import map.GameWorld;
 
 import javax.swing.*;
@@ -11,8 +13,13 @@ import java.awt.*;
  * ******************************
  **/
 public class Driver {
+    public static JFrame frame = new JFrame();
+
     public static void main(String[] args){
-        JFrame frame = new JFrame();
+        startGame();
+    }
+
+    public static void startGame(){
         GameWorld panel = new GameWorld(800,600);
         panel.setPreferredSize(new Dimension(800, 600));
         panel.setFocusable(true);
@@ -23,5 +30,11 @@ public class Driver {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
         panel.start();
+    }
+
+    public static void closeApp(){
+        frame.setVisible(false);
+        frame.dispose();
+        System.exit(0);
     }
 }
