@@ -190,7 +190,7 @@ public class Player extends Humanoid implements Controllable {
         if (currentPrimarySpellCooldown <= 0) {
 
             if (currentPrimarySpell == Spell.FIREBALL) {
-                currentPrimarySpellCooldown = 100;
+                currentPrimarySpellCooldown = 50;
                 return new Fireball((int) x, (int) y, mouseX, mouseY);
             }
 

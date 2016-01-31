@@ -27,7 +27,7 @@ public abstract class Enemy extends Humanoid implements AI {
     BufferedImage characterImage;
     Random rand;
 
-    public Enemy(int x, int y, int maxSpeed, String imgLoc) {
+    public Enemy(int x, int y, float maxSpeed, String imgLoc) {
         super(x, y, maxSpeed);
         rand = new Random();
         width = 40;

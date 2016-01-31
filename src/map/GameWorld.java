@@ -43,7 +43,6 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
 
     public GameWorld(int width, int height) {
         running = true;
-        spawner = new MobSpawner();
         detector = new CollisionDetector();
         try {
             backgroundImg = ImageIO.read(img);
@@ -51,7 +50,6 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
             System.out.print("");
         }
         characterImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-
         addKeyListener(this);
         addMouseListener(this);
     }
@@ -62,6 +60,7 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
                 gameOver(true);
             }
             player.update();
+            addEnemies();
             updateEnemies();
             updateSpells();
             updateScore();
@@ -78,16 +77,22 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
         }
     }
 
+    private synchronized void addEnemies(){
+        Enemy[] en = spawner.spawnEndless();
+        for (Enemy e : en) {
+            if(e!=null) {
+                enemies.add(e);
+            }
+        }
+    }
+
     public void setUpGame(){
         player = new Player(10,10,2);
         summoner = new Summoner(375, 275, 0);
         enemies = new LinkedList<>();
         spells = new LinkedList<>();
         score = new ScoreKeeper();
-
-        for(int i=0; i<10; i++){
-            enemies.add(new Spider(i*100,i*125,3));
-        }
+        spawner = new MobSpawner();
         running = true;
         startGame();
     }
@@ -120,10 +125,10 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
     }
 
     private void drawCreatures(Graphics2D g){
-
         player.draw(g);
-        for (Drawable d : enemies) {
-            d.draw(g);
+        player.draw(g);
+        for(int i=0; i<enemies.size(); i++){
+            enemies.get(i).draw(g);
         }
     }
 

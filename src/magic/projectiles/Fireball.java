@@ -11,6 +11,4 @@ public class Fireball extends Projectile {
     public Fireball(int x, int y, double mouseX, double mouseY) {
         super(x, y, mouseX, mouseY, "resource/fireballbigger.png");
     }
-
-
 }

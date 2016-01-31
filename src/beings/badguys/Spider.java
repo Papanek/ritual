@@ -8,7 +8,7 @@ package beings.badguys;
  * ******************************
  **/
 public class Spider extends Enemy {
-    public Spider(int x, int y, int maxSpeed) {
+    public Spider(int x, int y, float maxSpeed) {
         super(x, y, maxSpeed, "resource/enemybigger.png");
     }
 }
