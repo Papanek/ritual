@@ -19,6 +19,8 @@ public abstract class Humanoid implements Drawable, Collidable, Destructable, Up
     protected float maxSpeed;
     protected boolean alive;
 
+
+
     public Humanoid(int x, int y, float maxSpeed) {
         this.health = 100;
         this.maxHealth = 100;
