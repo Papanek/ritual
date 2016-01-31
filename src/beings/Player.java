@@ -20,8 +20,9 @@ import java.io.IOException;
  **/
 public class Player extends Humanoid implements Movable, Controllable{
 	boolean movingUP = false, movingDown = false, movingLeft = false, movingRight = false;
-	private float SPEED = .1f;
-	private float STOPSPEED = .35f;
+	private int maxSpeed = 2;
+	private float SPEED = .15f;
+	private float STOPSPEED = .1f;
 	File img = new File("resource/wizardleftbigger.png");
 	BufferedImage characterImage;
 	private int teleportCooldown;
@@ -47,7 +48,7 @@ public class Player extends Humanoid implements Movable, Controllable{
 
 	@Override
 	public void takeDamage(int damage){
-		System.out.println("player health: " + health);
+		System.out.println("Player Health: " + health);
 		if(flinchCooldown<=0){
 			health-=damage;
 			flinchCooldown=12;
@@ -56,68 +57,66 @@ public class Player extends Humanoid implements Movable, Controllable{
 	}
 
 	public void setUp(){
-		if(!movingUP){
+		if (movingUP) {
+			speedUp += SPEED;
+			if(speedUp>maxSpeed){
+				speedUp=maxSpeed;
+			}
+		} else {
 			if(speedUp != 0){
 				speedUp -= STOPSPEED;
 			}
 			if(speedUp < 0){
 				speedUp = 0;
 			}
-			if(speedUp == 0){
-				movingUP = false;
-			}
-		}else{
-			speedUp += SPEED;
 		}
 	}
 
 	public void setDown(){
-		if(!movingDown){
-			if(speedDown != 0){
-				if(speedDown > 0){
-					speedDown -= STOPSPEED;
-				}
-				if(speedDown < 0){
-					speedDown = 0;
-				}
-			}
-			if(speedDown == 0){
-				movingDown = false;
-			}
-		}else{
+		if (movingDown) {
 			speedDown += SPEED;
+			if(speedDown>maxSpeed){
+				speedDown=maxSpeed;
+			}
+		} else {
+			if(speedDown != 0){
+				speedDown -= STOPSPEED;
+			}
+			if(speedDown < 0){
+				speedDown = 0;
+			}
 		}
 	}
 
 	public void setLeft(){
-		if(!movingLeft){
-			if (speedLeft != 0){
+		if (movingLeft) {
+			speedLeft += SPEED;
+			if(speedLeft>maxSpeed){
+				speedLeft=maxSpeed;
+			}
+		} else {
+			if(speedLeft != 0){
 				speedLeft -= STOPSPEED;
 			}
 			if(speedLeft < 0){
 				speedLeft = 0;
 			}
-			if(speedLeft == 0){
-				movingLeft = false;
-			}
-		}else{
-			speedLeft += SPEED;
 		}
 	}
 
 	public void setRight(){
-		if(!movingRight){
-			if(speedRight!= 0){
-				speedRight-= STOPSPEED;
+		if (movingRight) {
+			speedRight += SPEED;
+			if(speedRight>maxSpeed){
+				speedRight=maxSpeed;
 			}
-			if(speedRight< 0){
+		} else {
+			if(speedRight != 0){
+				speedRight -= STOPSPEED;
+			}
+			if(speedRight < 0){
 				speedRight = 0;
 			}
-			if(speedRight == 0){
-				movingRight = false;
-			}
-		}else{
-			speedRight += SPEED;
 		}
 	}
 
@@ -125,10 +124,11 @@ public class Player extends Humanoid implements Movable, Controllable{
 	@Override
 	public void move() {
 		setRight(); setUp(); setLeft(); setDown();
-		if(movingUP)this.y -= this.speedUp;
-		if(movingDown)this.y += this.speedDown;
-		if(movingLeft)this.x -= this.speedLeft;
-		if(movingRight)this.x += this.speedRight;
+		this.y -= this.speedUp;
+		this.y += this.speedDown;
+		this.x -= this.speedLeft;
+		this.x += this.speedRight;
+
 		if(this.x>800-width){
 			this.x = 800-width;
 		} else if(this.x<0){

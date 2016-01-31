@@ -133,19 +133,15 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
     @Override
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode()== KeyEvent.VK_W){
-            System.out.println("Up");
             player.moveUp(true);
         }
         else if(e.getKeyCode() == KeyEvent.VK_A){
-            System.out.println("Left");
             player.moveLeft(true);
         }
         else if(e.getKeyCode() == KeyEvent.VK_S){
-            System.out.println("Down");
             player.moveDown(true);
         }
         else if(e.getKeyCode() == KeyEvent.VK_D){
-            System.out.println("Right");
             player.moveRight(true);
         }
     }
@@ -153,19 +149,15 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
     @Override
     public void keyReleased(KeyEvent e) {
         if(e.getKeyCode()== KeyEvent.VK_W){
-            System.out.println("not moving up");
             player.moveUp(false);
         }
         else if(e.getKeyCode() == KeyEvent.VK_A){
-            System.out.println("not moving left");
             player.moveLeft(false);
         }
         else if(e.getKeyCode() == KeyEvent.VK_S){
-            System.out.println("not moving Down");
             player.moveDown(false);
         }
         else if(e.getKeyCode() == KeyEvent.VK_D){
-            System.out.println("not moving Right");
             player.moveRight(false);
         }
     }
