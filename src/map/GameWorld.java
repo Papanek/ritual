@@ -28,15 +28,14 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
     private LinkedList<Enemy> enemies;
     File img = new File("background.png");
     BufferedImage image;
-    BufferedImage in;
 
     private Player p;
     public GameWorld(int width, int height){
-        image = new BufferedImage(width,height, BufferedImage.TYPE_INT_RGB);
         try{
-            image = ImageIO.read(new File("background.png"));
+            BufferedImage in = ImageIO.read(img);
         }
-        catch(IOException e){System.out.println("io problem");}
+        catch(IOException e){}
+        image = new BufferedImage(width,height, BufferedImage.TYPE_INT_RGB);
         p = new Player(10,10,10,2);
         enemies = new LinkedList<>();
         for(int i = 0; i<10; i++){
@@ -80,7 +79,8 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
     }
 
     private void drawBackground(Graphics2D g){
-        g.drawImage(image,0,0,getWidth(),getHeight(),null);
+        g.setColor(Color.CYAN);
+        g.fillRect(0,0,800,600);
     }
 
     private void moveEnemies(){
