@@ -133,41 +133,49 @@ public class Player extends Creature implements Movable, Controllable{
 	@Override
 	public void moveUp(boolean keyPressed) {
 		movingUP = keyPressed;
-		img = new File("resource/wizardupdownbigger.png");
-		try{
-			characterImage= ImageIO.read(img);
+		if(movingUP){
+			img = new File("resource/wizardupdownbigger.png");
+			try{
+				characterImage= ImageIO.read(img);
+			}
+			catch(IOException e){System.out.print("fuck");}
 		}
-		catch(IOException e){System.out.print("fuck");}
 	}
 
 	@Override
 	public void moveDown(boolean keyPressed) {
 		movingDown = keyPressed;
-		img = new File("resource/wizardupdownbigger.png");
-		try{
-			characterImage= ImageIO.read(img);
+		if(movingDown){
+			img = new File("resource/wizardupdownbigger.png");
+			try{
+				characterImage= ImageIO.read(img);
+			}
+			catch(IOException e){System.out.print("fuck");}
 		}
-		catch(IOException e){System.out.print("fuck");}
 	}
 
 	@Override
 	public void moveLeft(boolean keyPressed) {
 		movingLeft = keyPressed;
-		img = new File("resource/wizardleftbigger.png");
-		try{
-			characterImage= ImageIO.read(img);
+		if(movingLeft){
+			img = new File("resource/wizardleftbigger.png");
+			try{
+				characterImage= ImageIO.read(img);
+			}
+			catch(IOException e){System.out.print("fuck");}
 		}
-		catch(IOException e){System.out.print("fuck");}
 	}
 
 	@Override
 	public void moveRight(boolean keyPressed) {
 		movingRight = keyPressed ;
-		img = new File("resource/wizardrightbigger.png");
-		try{
-			characterImage= ImageIO.read(img);
+		if(movingRight){
+			img = new File("resource/wizardrightbigger.png");
+			try{
+				characterImage= ImageIO.read(img);
+			}
+			catch(IOException e){System.out.print("fuck");}
 		}
-		catch(IOException e){System.out.print("fuck");}
 	}
 
 	/**

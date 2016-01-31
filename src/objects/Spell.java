@@ -29,8 +29,8 @@ public class Spell implements Drawable, Movable{
 	BufferedImage spellImage;
 
     public Spell(int x, int y, float speedX, float speedY){
-    	this.x = x + 50 ; // adjust this to get spell to shoot from staff
-    	this.y = y + 50; // and this
+    	this.x = x; // adjust this to get spell to shoot from staff
+    	this.y = y; // and this
     	this.speedX = speedX;
     	this.speedY = speedY;
     	this.spellColor = Color.RED;
