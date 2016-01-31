@@ -3,7 +3,11 @@ package objects;
 import interfaces.AI;
 import interfaces.Movable;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * ******************************
@@ -14,15 +18,22 @@ import java.awt.*;
  **/
 public class Enemy extends Creature implements Movable, AI {
     private float speed = .003f;
+    File img = new File("resource/enemybigger.png");
+    BufferedImage characterImage;
+
     public Enemy(int x, int y, int health, int maxSpeed) {
         super(x, y, health, maxSpeed);
+        try{
+            characterImage= ImageIO.read(img);
+        }
+        catch(IOException e){System.out.print("fuck");}
     }
 
     @Override
     public void draw(Graphics2D g) {
-        g.setColor(Color.RED);
+        //g.setColor(Color.RED);
         g.translate(x,y);
-        g.drawRect(0,0,30,30);
+        g.drawImage(characterImage,0,0,null);
         g.translate(-x,-y);
     }
 
