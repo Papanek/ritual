@@ -25,6 +25,17 @@ public abstract class Humanoid implements Drawable, Collidable, Destructable {
         this.y = y;
         this.maxSpeed = maxSpeed;
     }
+    @Override
+    public void takeDamage(int damage){
+        this.health -= damage;
+        if(health<0){
+            alive = false;
+        }
+    }
+    @Override
+    public boolean isAlive() {
+        return alive;
+    }
 
     @Override
     public double getHeight() {
@@ -42,13 +53,5 @@ public abstract class Humanoid implements Drawable, Collidable, Destructable {
 
     public double getY() {
         return y;
-    }
-
-
-    public void takeDamage(int damage){
-        this.health -= damage;
-        if(health<0){
-            alive = false;
-        }
     }
 }

@@ -190,8 +190,4 @@ public class Player extends Humanoid implements Movable, Controllable{
 		}
 	}
 
-	@Override
-	public boolean isAlive() {
-		return alive;
-	}
 }

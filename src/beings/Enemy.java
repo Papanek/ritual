@@ -93,8 +93,4 @@ public class Enemy extends Humanoid implements Movable, AI {
         }
     }
 
-    @Override
-    public boolean isAlive() {
-        return alive;
-    }
 }
