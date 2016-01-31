@@ -28,6 +28,8 @@ public class Player extends Creature implements Movable, Controllable{
 
 	public Player(int x, int y, int health, int maxSpeed) {
 		super(x, y, health, maxSpeed);
+		height = 50;
+		width  = 50;
 		try{
 			characterImage= ImageIO.read(img);
 		}

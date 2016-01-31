@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 
 /**
  * ******************************
@@ -17,12 +18,16 @@ import java.io.IOException;
  * ******************************
  **/
 public class Enemy extends Creature implements Movable, AI {
+    private int reboundTimer = 0;
     private float speed = .003f;
     File img = new File("resource/enemybigger.png");
     BufferedImage characterImage;
+    Random rand;
 
     public Enemy(int x, int y, int health, int maxSpeed) {
         super(x, y, health, maxSpeed);
+        rand = new Random();
+        width = 40; height = 40;
         try{
             characterImage= ImageIO.read(img);
         }
@@ -31,7 +36,6 @@ public class Enemy extends Creature implements Movable, AI {
 
     @Override
     public void draw(Graphics2D g) {
-        //g.setColor(Color.RED);
         g.translate(x,y);
         g.drawImage(characterImage,0,0,null);
         g.translate(-x,-y);
@@ -41,6 +45,15 @@ public class Enemy extends Creature implements Movable, AI {
     public void move() {
         this.x += speedX;
         this.y += speedY;
+        reboundTimer--;
+    }
+
+    @Override
+    public void moveAway() {
+        if(reboundTimer<0) {
+            speedY *= -rand.nextFloat()*2;
+            reboundTimer=100;
+        }
     }
 
     @Override

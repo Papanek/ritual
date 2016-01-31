@@ -14,7 +14,7 @@ import java.util.LinkedList;
 public class CollisionDetector {
 
     boolean flinching = false;
-    public void detectPlayerCollision(Player p, LinkedList<Enemy> e){
+    public void detectPlayerEnemyCollision(Player p, LinkedList<Enemy> e){
         for(Enemy enemy : e ){
             if(checkCollision(p,enemy)){
                 System.out.println("Im Hurt");
@@ -22,6 +22,16 @@ public class CollisionDetector {
         }
     }
 
+    public boolean detectEnemyEnemyCollision(Enemy x, LinkedList<Enemy> enemies){
+        for(Enemy e : enemies){
+            if(!x.equals(e)) {
+                if (checkCollision(x, e)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
 
     public void detectSummonerCollision(Summoner s, LinkedList<Enemy> e){
@@ -55,10 +65,10 @@ public class CollisionDetector {
 
     private boolean checkCollision(Collidable object1, Collidable object2){
         boolean horizontal = false, vertical = false;
-        if(object1.getX() < object2.getX()+30 && object1.getX()+100 > object2.getX()){
+        if(object1.getX() < object2.getX()+object2.getWidth() && object1.getX()+object1.getWidth() > object2.getX()){
             horizontal = true;
         }
-        if(object1.getY()<object2.getY()+30&&object1.getY()+100>object2.getY()){
+        if(object1.getY()<object2.getY()+object2.getWidth()&&object1.getY()+object1.getHeight()>object2.getY()){
             vertical=true;
         }
         return (horizontal&&vertical);
