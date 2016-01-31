@@ -19,17 +19,24 @@ import java.io.IOException;
  * ******************************
  **/
 public class Player extends Humanoid implements Movable, Controllable{
+	private final String PLAYER_LEFT = "resource/wizardleftbigger.png";
+	private final String PLAYER_RIGHT = "resource/wizardrightbigger.png";
+	private final String PLAYER_UP = "resource/wizardupdownbigger.png";
+	private final String PLAYER_DOWN = "resource/wizardupdownbigger.png";
+
 	boolean movingUP = false, movingDown = false, movingLeft = false, movingRight = false;
+	private float speedUp=0, speedDown=0, speedLeft=0, speedRight=0;
 	private int maxSpeed = 2;
 	private float SPEED = .15f;
 	private float STOPSPEED = .1f;
-	File img = new File("resource/wizardleftbigger.png");
+	File img;
 	BufferedImage characterImage;
 	private int teleportCooldown;
 	private int flinchCooldown;
 	private int healCooldown;
 	public Player(int x, int y, int maxSpeed) {
 		super(x, y, maxSpeed);
+		img = new File(PLAYER_RIGHT);
 		height = 50;
 		width  = 50;
 		try{
@@ -54,9 +61,6 @@ public class Player extends Humanoid implements Movable, Controllable{
 			health-=damage;
 			flinchCooldown=12;
 		}
-		if(health<=0){
-			alive = false;
-		}
 
 	}
 
@@ -67,76 +71,29 @@ public class Player extends Humanoid implements Movable, Controllable{
 		}
 	}
 
-
-
-	public void setUp(){
-		if (movingUP) {
-			speedUp += SPEED;
-			if(speedUp>maxSpeed){
-				speedUp=maxSpeed;
+	private float set(boolean dir, float dirSpeed){
+		if (dir) {
+			dirSpeed += SPEED;
+			if(dirSpeed>maxSpeed){
+				dirSpeed=maxSpeed;
 			}
 		} else {
-			if(speedUp != 0){
-				speedUp -= STOPSPEED;
+			if(dirSpeed != 0){
+				dirSpeed -= STOPSPEED;
 			}
-			if(speedUp < 0){
-				speedUp = 0;
-			}
-		}
-	}
-
-	public void setDown(){
-		if (movingDown) {
-			speedDown += SPEED;
-			if(speedDown>maxSpeed){
-				speedDown=maxSpeed;
-			}
-		} else {
-			if(speedDown != 0){
-				speedDown -= STOPSPEED;
-			}
-			if(speedDown < 0){
-				speedDown = 0;
+			if(dirSpeed < 0){
+				dirSpeed = 0;
 			}
 		}
+		return dirSpeed;
 	}
-
-	public void setLeft(){
-		if (movingLeft) {
-			speedLeft += SPEED;
-			if(speedLeft>maxSpeed){
-				speedLeft=maxSpeed;
-			}
-		} else {
-			if(speedLeft != 0){
-				speedLeft -= STOPSPEED;
-			}
-			if(speedLeft < 0){
-				speedLeft = 0;
-			}
-		}
-	}
-
-	public void setRight(){
-		if (movingRight) {
-			speedRight += SPEED;
-			if(speedRight>maxSpeed){
-				speedRight=maxSpeed;
-			}
-		} else {
-			if(speedRight != 0){
-				speedRight -= STOPSPEED;
-			}
-			if(speedRight < 0){
-				speedRight = 0;
-			}
-		}
-	}
-
 
 	@Override
 	public void move() {
-		setRight(); setUp(); setLeft(); setDown();
+		speedRight= set(movingRight,speedRight);
+		speedUp	  = set(movingUP,speedUp);
+		speedLeft = set(movingLeft,speedLeft);
+		speedDown = set(movingDown,speedDown);
 		this.y -= this.speedUp;
 		this.y += this.speedDown;
 		this.x -= this.speedLeft;
@@ -157,54 +114,39 @@ public class Player extends Humanoid implements Movable, Controllable{
 		teleportCooldown--;
 		flinchCooldown--;
 		healCooldown--;
+		updateImage();
 	}
 
-	@Override
-	public void moveUp(boolean keyPressed) {
-		movingUP = keyPressed;
-		if(movingUP){
-			img = new File("resource/wizardupdownbigger.png");
-			try{
-				characterImage= ImageIO.read(img);
-			}
-			catch(IOException e){System.out.print("fuck");}
+	private void updateImage(){
+		if(speedRight>0){
+			img=new File(PLAYER_RIGHT);
+		} else if(speedLeft>0){
+			img=new File(PLAYER_LEFT);
+		} else if(speedUp>0||speedDown>0){
+			img=new File(PLAYER_DOWN);
 		}
+		try{
+			characterImage= ImageIO.read(img);
+		}
+		catch(IOException e){System.out.print("fuck");}
 	}
 
-	@Override
-	public void moveDown(boolean keyPressed) {
-		movingDown = keyPressed;
-		if(movingDown){
-			img = new File("resource/wizardupdownbigger.png");
-			try{
-				characterImage= ImageIO.read(img);
-			}
-			catch(IOException e){System.out.print("fuck");}
+	public void move(char dir, boolean b){
+		switch (dir){
+			case 'U':
+				movingUP = b;
+				break;
+			case 'D':
+				movingDown = b;
+				break;
+			case 'L':
+				movingLeft = b;
+				break;
+			case 'R':
+				movingRight = b;
+				break;
 		}
-	}
 
-	@Override
-	public void moveLeft(boolean keyPressed) {
-		movingLeft = keyPressed;
-		if(movingLeft){
-			img = new File("resource/wizardleftbigger.png");
-			try{
-				characterImage= ImageIO.read(img);
-			}
-			catch(IOException e){System.out.print("fuck");}
-		}
-	}
-
-	@Override
-	public void moveRight(boolean keyPressed) {
-		movingRight = keyPressed ;
-		if(movingRight){
-			img = new File("resource/wizardrightbigger.png");
-			try{
-				characterImage= ImageIO.read(img);
-			}
-			catch(IOException e){System.out.print("fuck");}
-		}
 	}
 
 	/**

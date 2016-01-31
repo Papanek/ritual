@@ -18,7 +18,6 @@ public abstract class Humanoid implements Drawable, Collidable, Destructable {
     protected int width, height;
     protected double x, y;
     protected float speedX, speedY;
-    protected float speedUp, speedDown, speedLeft, speedRight;
     protected float maxSpeed;
     protected boolean alive;
     public Humanoid(int x, int y, int maxSpeed){
