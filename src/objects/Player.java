@@ -25,6 +25,7 @@ public class Player extends Creature implements Movable, Controllable{
 	private float STOPSPEED = .35f;
 	File img = new File("resource/wizardleftbigger.png");
 	BufferedImage characterImage;
+	private int teleportCooldown;
 
 	public Player(int x, int y, int health, int maxSpeed) {
 		super(x, y, health, maxSpeed);
@@ -128,6 +129,7 @@ public class Player extends Creature implements Movable, Controllable{
 				spells.remove(s);
 			}
 		}
+		teleportCooldown--;
 	}
 
 	@Override
@@ -195,6 +197,14 @@ public class Player extends Creature implements Movable, Controllable{
 		spellSpeedY = (float) Math.sin(theta)*6;
 
 		spells.add(new Spell((int)this.x, (int)this.y, spellSpeedX, spellSpeedY));
+	}
+	
+	public void teleport(int mouseX, int mouseY){
+		if(teleportCooldown <= 0){
+			this.x = mouseX;
+			this.y = mouseY;
+			this.teleportCooldown = 500;
+		}
 	}
 
 }
