@@ -28,11 +28,13 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
     CollisionDetector detector;
     private LinkedList<Enemy> enemies;
     private LinkedList<Spell> spells;
+    private boolean running;
     File img = new File("resource/background.png");
     BufferedImage characterImage, backgroundImg;
     private Player player;
     private Summoner summoner;
     public GameWorld(int width, int height){
+        running=true;
         detector = new CollisionDetector();
         try{
             backgroundImg = ImageIO.read(img);
@@ -54,7 +56,7 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
     }
 
     public void start () {
-        while(true){
+        while(running){
             moveEnemies();
             moveSpells();
             player.move();
@@ -103,6 +105,9 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
     }
 
     private void drawCreatures(Graphics2D g){
+        if(!player.isAlive()){
+            running = false;
+        }
         player.draw(g);
         for(Drawable d : enemies){
             d.draw(g);

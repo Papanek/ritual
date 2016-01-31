@@ -54,6 +54,9 @@ public class Player extends Humanoid implements Movable, Controllable{
 			health-=damage;
 			flinchCooldown=12;
 		}
+		if(health<=0){
+			alive = false;
+		}
 
 	}
 
@@ -63,6 +66,8 @@ public class Player extends Humanoid implements Movable, Controllable{
 			healCooldown=5;
 		}
 	}
+
+
 
 	public void setUp(){
 		if (movingUP) {
