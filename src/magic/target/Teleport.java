@@ -11,14 +11,18 @@ import beings.Player;
  **/
 public class Teleport extends TargetSpell {
     public Teleport(Player p, double mouseX, double mouseY) {
-        super(mouseX, mouseY, "resource/icecube.png");
+        super(mouseX, mouseY, "resource/summonerbigger.png");
         p.setX(mouseX);
         p.setY(mouseY);
         System.out.print("Tele");
+        health = 50;
     }
 
     @Override
     public void update() {
-
+        health--;
+        if(health<0){
+            killSpell();
+        }
     }
 }

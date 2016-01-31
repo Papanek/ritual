@@ -44,8 +44,8 @@ public abstract class Spell implements Drawable, Movable, Collidable, Updatable 
     }
 
     public void killSpell() {
-        this.x = 2000;
-        this.y = 2000;
+        this.x = -5000;
+        this.y = -5000;
     }
 
     @Override
