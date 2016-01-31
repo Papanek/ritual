@@ -1,4 +1,4 @@
-package objects;
+package beings;
 
 import interfaces.AI;
 import interfaces.Movable;
@@ -17,17 +17,19 @@ import java.util.Random;
  * Date :   1/29/2016
  * ******************************
  **/
-public class Enemy extends Creature implements Movable, AI {
+public class Enemy extends Humanoid implements Movable, AI {
+    public static final String SPIDER = "resource/enemybigger.png";
     private int reboundTimer = 0;
-    private float speed = .003f;
-    File img = new File("resource/enemybigger.png");
+    private float speed = .006f;
+    File img;
     BufferedImage characterImage;
     Random rand;
 
-    public Enemy(int x, int y, int health, int maxSpeed) {
+    public Enemy(int x, int y, int health, int maxSpeed, String imgLoc) {
         super(x, y, health, maxSpeed);
         rand = new Random();
         width = 40; height = 40;
+        img = new File(imgLoc);
         try{
             characterImage= ImageIO.read(img);
         }

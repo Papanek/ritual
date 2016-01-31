@@ -1,10 +1,9 @@
 package map;
 
 import interfaces.Drawable;
-import objects.CollisionDetector;
-import objects.Enemy;
-import objects.Player;
-import objects.Summoner;
+import beings.*;
+import magic.Spell;
+import util.CollisionDetector;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -28,9 +27,10 @@ import java.util.LinkedList;
 public class GameWorld extends JPanel implements MouseListener, KeyListener{
     CollisionDetector detector;
     private LinkedList<Enemy> enemies;
+    private LinkedList<Spell> spells;
     File img = new File("resource/background.png");
     BufferedImage characterImage, backgroundImg;
-    private Player p;
+    private Player player;
     private Summoner s;
     public GameWorld(int width, int height){
         detector = new CollisionDetector();
@@ -39,23 +39,27 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
         }
         catch(IOException e){System.out.print("");}
         characterImage = new BufferedImage(width,height, BufferedImage.TYPE_INT_RGB);
-        p = new Player(10,10,10,2);
+        player = new Player(10,10,10,2);
         s = new Summoner(275, 375, 20, 0);
         enemies = new LinkedList<>();
+        spells = new LinkedList<>();
+
         for(int i = 0; i<10; i++){
-            enemies.add(new Enemy(100*i,100*i,100,1));
+            enemies.add(new Enemy(100*i,100*i,100,2,Enemy.SPIDER));
         }
+
+
         addKeyListener(this);
         addMouseListener(this);
-    };
+    }
 
     public void start () {
         while(true){
             moveEnemies();
-            p.move();
-            detector.detectPlayerEnemyCollision(p,enemies);
+            moveSpells();
+            player.move();
+            detector.detectPlayerEnemyCollision(player,enemies);
             repaint();
-
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e){
@@ -72,13 +76,31 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         drawBackground(g);
         drawCreatures(g);
+        drawSpells(g);
         drawSummoner(g);
         _g.drawImage(characterImage,0,0,null);
         g.dispose();
     }
 
+    private void drawSpells(Graphics2D g){
+        for (Spell s : spells) {
+            s.draw(g);
+        }
+    }
+
+    private void moveSpells(){
+        for(int i = 0; i < spells.size(); i++){
+            Spell s = spells.get(i);
+            if(s.isInGameWorld()){
+                s.move();
+            }else{
+                spells.remove(s);
+            }
+        }
+    }
+
     private void drawCreatures(Graphics2D g){
-        p.draw(g);
+        player.draw(g);
         for(Drawable d : enemies){
             d.draw(g);
         }
@@ -97,7 +119,7 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
             if(detector.detectEnemyEnemyCollision(e,enemies)) {
                 e.moveAway();
             }
-            e.moveTo(p, new Summoner(10, 10, 10, 10));
+            e.moveTo(player, new Summoner(10, 10, 10, 10));
             e.move();
         }
     }
@@ -106,19 +128,19 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
     public void keyPressed(KeyEvent e) {
         if(e.getKeyCode()== KeyEvent.VK_W){
             System.out.println("Up");
-            p.moveUp(true);
+            player.moveUp(true);
         }
         else if(e.getKeyCode() == KeyEvent.VK_A){
             System.out.println("Left");
-            p.moveLeft(true);
+            player.moveLeft(true);
         }
         else if(e.getKeyCode() == KeyEvent.VK_S){
             System.out.println("Down");
-            p.moveDown(true);
+            player.moveDown(true);
         }
         else if(e.getKeyCode() == KeyEvent.VK_D){
             System.out.println("Right");
-            p.moveRight(true);
+            player.moveRight(true);
         }
     }
 
@@ -126,19 +148,19 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
     public void keyReleased(KeyEvent e) {
         if(e.getKeyCode()== KeyEvent.VK_W){
             System.out.println("not moving up");
-            p.moveUp(false);
+            player.moveUp(false);
         }
         else if(e.getKeyCode() == KeyEvent.VK_A){
             System.out.println("not moving left");
-            p.moveLeft(false);
+            player.moveLeft(false);
         }
         else if(e.getKeyCode() == KeyEvent.VK_S){
             System.out.println("not moving Down");
-            p.moveDown(false);
+            player.moveDown(false);
         }
         else if(e.getKeyCode() == KeyEvent.VK_D){
             System.out.println("not moving Right");
-            p.moveRight(false);
+            player.moveRight(false);
         }
     }
 
@@ -151,14 +173,14 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
     public void mousePressed(MouseEvent e) {
     	int mouseX = e.getX();
     	int mouseY = e.getY();
-    	System.out.println(mouseX + " " + mouseY);
     	  if(e.getButton() == MouseEvent.BUTTON1) {
-    		  p.castSpell(mouseX, mouseY);
+
+              spells.add(player.castSpell(mouseX,mouseY));
+
+
     	  }else if(e.getButton() == MouseEvent.BUTTON3){
-    		  p.teleport(mouseX, mouseY);
+    		  player.teleport(mouseX, mouseY);
     	  }
-  	    
-    	
     }
 
     @Override

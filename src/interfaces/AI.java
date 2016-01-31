@@ -1,7 +1,7 @@
 package interfaces;
 
-import objects.Player;
-import objects.Summoner;
+import beings.Player;
+import beings.Summoner;
 
 /**
  * ******************************

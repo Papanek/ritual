@@ -1,6 +1,10 @@
-package objects;
+package util;
 
 import interfaces.Collidable;
+import beings.Enemy;
+import beings.Player;
+import magic.Spell;
+import beings.Summoner;
 
 import java.util.LinkedList;
 

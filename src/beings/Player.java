@@ -1,15 +1,14 @@
-package objects;
+package beings;
 
 import interfaces.Controllable;
 import interfaces.Movable;
+import magic.Spell;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * ******************************
@@ -18,15 +17,13 @@ import java.util.List;
  * Date :   1/29/2016
  * ******************************
  **/
-public class Player extends Creature implements Movable, Controllable{
-	List<Spell> spells = new LinkedList<>();
+public class Player extends Humanoid implements Movable, Controllable{
 	boolean movingUP = false, movingDown = false, movingLeft = false, movingRight = false;
 	private float SPEED = .1f;
 	private float STOPSPEED = .35f;
 	File img = new File("resource/wizardleftbigger.png");
 	BufferedImage characterImage;
 	private int teleportCooldown;
-
 	public Player(int x, int y, int health, int maxSpeed) {
 		super(x, y, health, maxSpeed);
 		height = 50;
@@ -43,10 +40,6 @@ public class Player extends Creature implements Movable, Controllable{
 		g.translate(x,y);
 		g.drawImage(characterImage,0,0,null);
 		g.translate(-x,-y);
-		for(int i = 0; i < spells.size(); i++){
-			Spell s = spells.get(i);
-			s.draw(g);
-		}
 	}
 
 	public void setUp(){
@@ -123,14 +116,6 @@ public class Player extends Creature implements Movable, Controllable{
 		if(movingDown)this.y += this.speedDown;
 		if(movingLeft)this.x -= this.speedLeft;
 		if(movingRight)this.x += this.speedRight;
-		for(int i = 0; i < spells.size(); i++){
-			Spell s = spells.get(i);
-			if(s.isInGameWorld()){
-				s.move();
-			}else{
-				spells.remove(s);
-			}
-		}
 		teleportCooldown--;
 	}
 
@@ -185,22 +170,17 @@ public class Player extends Creature implements Movable, Controllable{
 	/**
 	 * Takes the x and y coordinates of the mouse when clicked and creates a new spell with a speedX and speedY towards the mouse
 	 * starting at the player's position
-	 *  
-	 * @param mouseX
-	 * @param mouseY
+	 *
+	 * @param mouseX mouse x
+	 * @param mouseY mouse y
 	 */
-	public void castSpell(int mouseX, int mouseY){
-		float spellSpeedX, spellSpeedY;
-		spellSpeedX = (float) (mouseX - this.x);
-		spellSpeedY = (float) (mouseY -this.y);
+	public Spell castSpell(int mouseX, int mouseY){
 
-		double theta = Math.atan2(spellSpeedY, spellSpeedX);
-		spellSpeedX = (float) Math.cos(theta)*6;
-		spellSpeedY = (float) Math.sin(theta)*6;
+		return new Spell((int)x,(int)y,mouseX, mouseY, Spell.FIREBALL);
 
-		spells.add(new Spell((int)this.x, (int)this.y, spellSpeedX, spellSpeedY));
+
 	}
-	
+
 	public void teleport(int mouseX, int mouseY){
 		if(teleportCooldown <= 0){
 			this.x = mouseX;

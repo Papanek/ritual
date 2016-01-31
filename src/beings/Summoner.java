@@ -1,4 +1,6 @@
-package objects;
+package beings;
+
+import magic.Spell;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -10,7 +12,7 @@ import java.util.ArrayList;
 /**
  * Created by brewi on 2016-01-29.
  */
-public class Summoner extends Creature{
+public class Summoner extends Humanoid {
 
 	File img = new File("resource/summonerbigger.png");
 	BufferedImage characterImage;

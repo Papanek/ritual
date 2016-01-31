@@ -1,6 +1,5 @@
-package objects;
+package magic;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -20,29 +19,31 @@ import javax.imageio.ImageIO;
  **/
 
 public class Spell implements Drawable, Movable{
-    protected int damage;
+	public static final String FIREBALL = "resource/fireballbigger.png";
+    protected int damage = 50;
     protected float speedX;
     protected float speedY;
     protected int x, y;
-    protected Color spellColor;
-	File img = new File("resource/fireballbigger.png");
+	File img;
 	BufferedImage spellImage;
 
-    public Spell(int x, int y, float speedX, float speedY){
-    	this.x = x; // adjust this to get spell to shoot from staff
-    	this.y = y; // and this
-    	this.speedX = speedX;
-    	this.speedY = speedY;
-    	this.spellColor = Color.RED;
+    public Spell(int x, int y, double mx, double my, String imgLoc){
+		this.x = x;
+		this.y = y;
+		speedX = (float) (mx - this.x);
+		speedY = (float) (my -this.y);
+		double theta = Math.atan2(speedY, speedX);
+		speedX = (float) Math.cos(theta)*6;
+		speedY = (float) Math.sin(theta)*6;
+		img =new File(imgLoc);
 		try{
 			spellImage= ImageIO.read(img);
 		}
 		catch(IOException e){System.out.print("fuck");}
     }
-    
+
 	@Override
 	public void draw(Graphics2D g) {
-		//g.setColor(spellColor);
 		g.translate(x,  y);
 		g.drawImage(spellImage, 0, 0, null);
 		g.translate(-x, -y);
@@ -53,11 +54,8 @@ public class Spell implements Drawable, Movable{
 		this.x += speedX;
 		this.y += speedY;
 	}
-	
+
 	public boolean isInGameWorld(){
-		if(this.x > 800 || this.y > 600){
-			return false;
-		}
-		return true;
+		return !(this.x > 800 || this.y > 600);
 	}
 }
