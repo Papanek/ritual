@@ -27,6 +27,12 @@ public class CollisionDetector {
         }
     }
 
+    public void detectPlayerSummonerCollision(Player p, Summoner s){
+            if(checkCollision(p,s)){
+                p.heal(2);
+            }
+    }
+
     public boolean detectEnemyEnemyCollision(Enemy x, LinkedList<Enemy> enemies){
         for(Enemy e : enemies){
             if(!x.equals(e)) {
@@ -50,17 +56,10 @@ public class CollisionDetector {
     }
 
     public void detectSummonerCollision(Summoner s, LinkedList<Enemy> e){
-        if(!flinching){
-            //for(Enemy enemy : e ){
-                //if(sx > ex && sx < ex+ew){
-                    //if(sy > ey && sy < ey+eh){
-                        //summoner set flinching
-                        //summoner take damage
-                        //summoner spell??
-                       // break;
-                    //}
-                //}
-            //}
+        for (Enemy enemy : e){
+            if(checkCollision(enemy,s)){
+                s.takeDamage(2);
+            }
         }
     }
 

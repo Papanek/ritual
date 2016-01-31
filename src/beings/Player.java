@@ -26,6 +26,7 @@ public class Player extends Humanoid implements Movable, Controllable{
 	BufferedImage characterImage;
 	private int teleportCooldown;
 	private int flinchCooldown;
+	private int healCooldown;
 	public Player(int x, int y, int maxSpeed) {
 		super(x, y, maxSpeed);
 		height = 50;
@@ -53,6 +54,13 @@ public class Player extends Humanoid implements Movable, Controllable{
 			flinchCooldown=12;
 		}
 
+	}
+
+	public void heal(int boost){
+		if(health < maxHealth && healCooldown <=0) {
+			health += boost;
+			healCooldown=5;
+		}
 	}
 
 	public void setUp(){
@@ -143,6 +151,7 @@ public class Player extends Humanoid implements Movable, Controllable{
 
 		teleportCooldown--;
 		flinchCooldown--;
+		healCooldown--;
 	}
 
 	@Override

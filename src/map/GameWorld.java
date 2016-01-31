@@ -31,7 +31,7 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
     File img = new File("resource/background.png");
     BufferedImage characterImage, backgroundImg;
     private Player player;
-    private Summoner s;
+    private Summoner summoner;
     public GameWorld(int width, int height){
         detector = new CollisionDetector();
         try{
@@ -40,7 +40,7 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
         catch(IOException e){System.out.print("");}
         characterImage = new BufferedImage(width,height, BufferedImage.TYPE_INT_RGB);
         player = new Player(10,10,2);
-        s = new Summoner(275, 375, 0);
+        summoner = new Summoner(375, 275, 0);
         enemies = new LinkedList<>();
         spells = new LinkedList<>();
 
@@ -60,6 +60,8 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
             player.move();
             detector.detectPlayerEnemyCollision(player,enemies);
             detector.detectSpellCollision(spells,enemies);
+            detector.detectSummonerCollision(summoner,enemies);
+            detector.detectPlayerSummonerCollision(player,summoner);
             repaint();
             try {
                 Thread.sleep(10);
@@ -112,7 +114,7 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
     }
 
     private void drawSummoner(Graphics2D g){
-        s.draw(g);
+        summoner.draw(g);
     }
 
     private void moveEnemies() {
@@ -122,7 +124,7 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
                 if (detector.detectEnemyEnemyCollision(e, enemies)) {
                     e.moveAway();
                 }
-                e.moveTo(player, new Summoner(10, 10, 10));
+                e.moveTo(player, summoner);
                 e.move();
             } else {
                 enemies.remove(e);

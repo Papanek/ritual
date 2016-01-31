@@ -17,6 +17,7 @@ public class Summoner extends Humanoid {
 	File img = new File("resource/summonerbigger.png");
 	BufferedImage characterImage;
     ArrayList<Spell> spells = new ArrayList<>();
+	private int flinchCooldown;
 
 	public Summoner(int x, int y, int maxSpeed) {
 		super(x, y, maxSpeed);
@@ -28,7 +29,18 @@ public class Summoner extends Humanoid {
 
 	@Override
 	public void draw(Graphics2D g) {
-		g.drawImage(characterImage,(int)this.y,(int)this.x,null);
+		g.translate(x,y);
+		g.drawImage(characterImage,0,0,null);
+		super.drawHealthBar(health, g);
+		flinchCooldown--;
 	}
 
+	@Override
+	public void takeDamage(int damage) {
+		System.out.println("player health: " + health);
+		if(flinchCooldown<=0){
+			health-=damage;
+			flinchCooldown=20;
+		}
+	}
 }
