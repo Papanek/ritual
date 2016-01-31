@@ -22,14 +22,14 @@ public class CollisionDetector {
     public void detectPlayerEnemyCollision(Player p, LinkedList<Enemy> e) {
         for (Enemy enemy : e) {
             if (checkCollision(p, enemy)) {
-                p.takeDamage(2);
+                p.takeDamage(1);
             }
         }
     }
 
     public void detectPlayerSummonerCollision(Player p, Summoner s) {
         if (checkCollision(p, s)) {
-            p.heal(2);
+            p.heal(3);
         }
     }
 

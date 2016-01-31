@@ -63,37 +63,66 @@ public abstract class Enemy extends Humanoid implements AI {
         }
     }
 
+    private double calcDist(double x1, double x2, double y2, double y1){
+        double xsqr = Math.pow((x2-x1),2.0);
+        double ysqr = Math.pow((y2-y1),2.0);
+        double calc = xsqr + ysqr;
+        calc = Math.sqrt(calc);
+        return calc;
+    }
+
     @Override
     public void moveTo(Player p, Summoner s) {
-        if (p.getX() > x) {
-            speedX += speed;
-            if (speedX > maxSpeed) {
-                speedX = maxSpeed;
-            } else if (speedX < 0) {
+
+        if(calcDist(p.getX(),x,p.getY(),y) < calcDist(s.getX(),x,s.getY(),y)){
+            if (p.getX() > x) {
                 speedX += speed;
-            }
-        } else {
-            speedX -= speed;
-            if (speedX < -maxSpeed) {
-                speedX = -maxSpeed;
-            } else if (speedX > 0) {
+                if (speedX > maxSpeed) {
+                    speedX = maxSpeed;
+                }
+            } else {
                 speedX -= speed;
+                if (speedX < -maxSpeed) {
+                    speedX = -maxSpeed;
+                }
             }
-        }
-        if (p.getY() > y) {
-            speedY += speed;
-            if (speedY > maxSpeed) {
-                speedY = maxSpeed;
-            } else if (speedY < 0) {
+            if (p.getY() > y) {
                 speedY += speed;
-            }
-        } else {
-            speedY -= speed;
-            if (speedY < -maxSpeed) {
-                speedY = -maxSpeed;
-            } else if (speedY > 0) {
+                if (speedY > maxSpeed) {
+                    speedY = maxSpeed;
+                }
+            } else {
                 speedY -= speed;
+                if (speedY < -maxSpeed) {
+                    speedY = -maxSpeed;
+                }
             }
         }
+        else if(calcDist(p.getX(),x,p.getY(),y) > calcDist(s.getX(),x,s.getY(),y)){
+            if (s.getX() > x) {
+                speedX += speed;
+                if (speedX > maxSpeed) {
+                    speedX = maxSpeed;
+                }
+            } else {
+                speedX -= speed;
+                if (speedX < -maxSpeed) {
+                    speedX = -maxSpeed;
+                }
+            }
+            if (s.getY() > y) {
+                speedY += speed;
+                if (speedY > maxSpeed) {
+                    speedY = maxSpeed;
+                }
+            } else {
+                speedY -= speed;
+                if (speedY < -maxSpeed) {
+                    speedY = -maxSpeed;
+                }
+            }
+        }
+
+
     }
 }
