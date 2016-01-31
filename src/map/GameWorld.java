@@ -7,6 +7,8 @@ import interfaces.Drawable;
 import magic.Spell;
 import util.CollisionDetector;
 import util.Driver;
+import util.ScoreKeeper;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -35,6 +37,7 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
     BufferedImage characterImage, backgroundImg;
     private Player player;
     private Summoner summoner;
+    private ScoreKeeper score;
 
     public GameWorld(int width, int height) {
         running = true;
@@ -49,6 +52,7 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
         summoner = new Summoner(375, 275, 0);
         enemies = new LinkedList<>();
         spells = new LinkedList<>();
+        score = new ScoreKeeper();
 
         for (int i = 0; i < 20; i++) {
             enemies.add(new Enemy(100 * i, 100 * i, 2, Enemy.SPIDER));
@@ -66,6 +70,7 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
             player.update();
             updateEnemies();
             updateSpells();
+            updateScore();
             detector.detectPlayerEnemyCollision(player, enemies);
             detector.detectSpellCollision(spells, enemies);
             detector.detectSummonerCollision(summoner, enemies);
@@ -85,6 +90,7 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
         summoner = new Summoner(375, 275, 0);
         enemies = new LinkedList<>();
         spells = new LinkedList<>();
+        score = new ScoreKeeper();
 
         for(int i = 0; i<20; i++){
             enemies.add(new Enemy(100*i,100*i,2,Enemy.SPIDER));
@@ -103,6 +109,7 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
         drawCreatures(g);
         drawSpells(g);
         drawSummoner(g);
+        drawScore(g);
         _g.drawImage(characterImage, 0, 0, null);
         g.dispose();
     }
@@ -142,6 +149,14 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
         g.drawImage(backgroundImg, 0, 0, null);
     }
 
+    private void drawScore(Graphics2D g){
+        String scoreStr = "Score: " + Integer.toString(score.getScore());
+        g.setColor(Color.black);
+        Font trb = new Font("TimesRoman", Font.BOLD, 18);
+        g.setFont(trb);
+        g.drawString(scoreStr, 10, 20);
+    }
+
     private void updateSpells() {
         for (int i = 0; i < spells.size(); i++) {
             Spell s = spells.get(i);
@@ -151,6 +166,10 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
                 spells.remove(s);
             }
         }
+    }
+
+    private void updateScore(){
+        score.update();
     }
 
     private void updateEnemies() {

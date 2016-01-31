@@ -39,6 +39,7 @@ public class Summoner extends Humanoid {
         g.drawImage(characterImage, 0, 0, null);
         super.drawHealthBar(health, g);
         flinchCooldown--;
+        g.translate(-x,-y);
     }
 
     @Override
