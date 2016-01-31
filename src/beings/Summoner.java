@@ -28,6 +28,11 @@ public class Summoner extends Humanoid {
 	}
 
 	@Override
+	public void update() {
+
+	}
+
+	@Override
 	public void draw(Graphics2D g) {
 		g.translate(x,y);
 		g.drawImage(characterImage,0,0,null);

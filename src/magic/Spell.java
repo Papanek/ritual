@@ -5,10 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-import interfaces.Collidable;
-import interfaces.Destructable;
-import interfaces.Drawable;
-import interfaces.Movable;
+import interfaces.*;
 import sun.security.krb5.internal.crypto.Des;
 
 import javax.imageio.ImageIO;
@@ -21,7 +18,7 @@ import javax.imageio.ImageIO;
  * ******************************
  **/
 
-public class Spell implements Drawable, Movable, Collidable{
+public class Spell implements Drawable, Movable, Collidable, Updatable{
 	public static final String FIREBALL = "resource/fireballbigger.png";
     protected int damage = 50;
 	protected int health = 1;
@@ -45,6 +42,11 @@ public class Spell implements Drawable, Movable, Collidable{
 		}
 		catch(IOException e){System.out.print("fuck");}
     }
+
+	@Override
+	public void update() {
+		move();
+	}
 
 	public int getDamage(){
 		return damage;

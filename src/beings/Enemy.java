@@ -1,7 +1,6 @@
 package beings;
 
 import interfaces.AI;
-import interfaces.Movable;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -17,10 +16,10 @@ import java.util.Random;
  * Date :   1/29/2016
  * ******************************
  **/
-public class Enemy extends Humanoid implements Movable, AI {
+public class Enemy extends Humanoid implements AI {
     public static final String SPIDER = "resource/enemybigger.png";
     private int reboundTimer = 0;
-    private float speed = .006f;
+    private float speed = .011f;
     File img;
     BufferedImage characterImage;
     Random rand;
@@ -37,6 +36,12 @@ public class Enemy extends Humanoid implements Movable, AI {
     }
 
     @Override
+    public void update() {
+        move();
+        reboundTimer--;
+    }
+
+    @Override
     public void draw(Graphics2D g) {
         g.translate(x,y);
         super.drawHealthBar(health, g);
@@ -45,17 +50,10 @@ public class Enemy extends Humanoid implements Movable, AI {
     }
 
     @Override
-    public void move() {
-        this.x += speedX;
-        this.y += speedY;
-        reboundTimer--;
-    }
-
-    @Override
     public void moveAway() {
         if(reboundTimer<0) {
-            speedY *= -rand.nextFloat()*2;
-            speedX *= rand.nextFloat();
+            speedY *= -rand.nextFloat()*1.5;
+            speedX *= rand.nextFloat()*1.5;
             reboundTimer=100;
         }
     }
@@ -93,5 +91,4 @@ public class Enemy extends Humanoid implements Movable, AI {
             }
         }
     }
-
 }
