@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.IOException;
 
 import interfaces.*;
-import sun.security.krb5.internal.crypto.Des;
 
 import javax.imageio.ImageIO;
 
@@ -18,35 +17,23 @@ import javax.imageio.ImageIO;
  * ******************************
  **/
 
-public class Spell implements Drawable, Movable, Collidable, Updatable{
-	public static final String FIREBALL = "resource/fireballbigger.png";
+public abstract class Spell implements Drawable, Movable, Collidable, Updatable{
+	public static final int FIREBALL = 1;
+	public static final int TELEPORT = 2;
     protected int damage = 50;
 	protected int health = 1;
     protected float speedX;
     protected float speedY;
     protected int x, y, width = 1, height = 1;
-	File img;
-	BufferedImage spellImage;
-
-    public Spell(int x, int y, double mx, double my, String imgLoc){
-		this.x = x;
-		this.y = y;
-		speedX = (float) (mx - this.x);
-		speedY = (float) (my -this.y);
-		double theta = Math.atan2(speedY, speedX);
-		speedX = (float) Math.cos(theta)*6;
-		speedY = (float) Math.sin(theta)*6;
+	protected File img;
+	protected BufferedImage spellImage;
+    public Spell(String imgLoc){
 		img =new File(imgLoc);
 		try{
 			spellImage= ImageIO.read(img);
 		}
 		catch(IOException e){System.out.print("fuck");}
     }
-
-	@Override
-	public void update() {
-		move();
-	}
 
 	public int getDamage(){
 		return damage;

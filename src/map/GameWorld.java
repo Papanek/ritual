@@ -178,13 +178,19 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
     public void mousePressed(MouseEvent e) {
     	int mouseX = e.getX();
     	int mouseY = e.getY();
-    	  if(e.getButton() == MouseEvent.BUTTON1) {
+        Spell spell = null;
+        if(e.getButton() == MouseEvent.BUTTON1) {
 
-              spells.add(player.castSpell(mouseX,mouseY));
+            spell = player.castPrimarySpell(mouseX,mouseY);
 
-    	  }else if(e.getButton() == MouseEvent.BUTTON3){
-    		  player.teleport(mouseX, mouseY);
-    	  }
+        }else if(e.getButton() == MouseEvent.BUTTON3){
+
+            spell = player.castSecondarySpell(mouseX, mouseY);
+
+        }
+        if(spell!=null){
+            spells.add(spell);
+        }
     }
 
     @Override

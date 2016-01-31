@@ -1,9 +1,6 @@
 package beings;
 
-import interfaces.Collidable;
-import interfaces.Destructable;
-import interfaces.Drawable;
-import interfaces.Updatable;
+import interfaces.*;
 
 import java.awt.*;
 
@@ -14,7 +11,7 @@ import java.awt.*;
  * Date :   1/29/2016
  * ******************************
  **/
-public abstract class Humanoid implements Drawable, Collidable, Destructable, Updatable {
+public abstract class Humanoid implements Drawable, Collidable, Destructable, Updatable, Movable {
     protected int health, maxHealth;
     protected int width, height;
     protected double x, y;
@@ -30,7 +27,8 @@ public abstract class Humanoid implements Drawable, Collidable, Destructable, Up
         this.maxSpeed = maxSpeed;
     }
 
-    protected void move(){
+    @Override
+    public void move(){
         this.x += speedX;
         this.y += speedY;
     }

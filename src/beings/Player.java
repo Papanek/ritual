@@ -4,6 +4,8 @@ import interfaces.Controllable;
 import interfaces.Destructable;
 import interfaces.Movable;
 import magic.Spell;
+import magic.projectiles.Fireball;
+import magic.target.Teleport;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -34,12 +36,19 @@ public class Player extends Humanoid implements Controllable{
 	File img;
 	BufferedImage characterImage;
 
-	private int teleportCooldown;
 	private int flinchCooldown;
 	private int healCooldown;
 
+	private int currentPrimarySpell;
+	private int currentPrimarySpellCooldown=0;
+	private int currentSecondarySpell;
+	private int currentSecondarySpellCooldown=0;
+
 	public Player(int x, int y, int maxSpeed) {
 		super(x, y, maxSpeed);
+		currentPrimarySpell   = Spell.FIREBALL;
+		currentSecondarySpell = Spell.TELEPORT;
+
 		img = new File(PLAYER_RIGHT);
 		height = 50;
 		width  = 50;
@@ -53,7 +62,8 @@ public class Player extends Humanoid implements Controllable{
 	public void update() {
 		move();
 		updateImage();
-		teleportCooldown--;
+		currentPrimarySpellCooldown--;
+		currentSecondarySpellCooldown--;
 		flinchCooldown--;
 		healCooldown--;
 	}
@@ -158,6 +168,13 @@ public class Player extends Humanoid implements Controllable{
 
 	}
 
+	public void setX(double x){
+		this.x = x;
+	}
+	public void setY(double y){
+		this.y = y;
+	}
+
 	/**
 	 * Takes the x and y coordinates of the mouse when clicked and creates a new spell with a speedX and speedY towards the mouse
 	 * starting at the player's position
@@ -165,16 +182,28 @@ public class Player extends Humanoid implements Controllable{
 	 * @param mouseX mouse x
 	 * @param mouseY mouse y
 	 */
-	public Spell castSpell(int mouseX, int mouseY){
-		return new Spell((int)x,(int)y,mouseX, mouseY, Spell.FIREBALL);
+	public Spell castPrimarySpell(int mouseX, int mouseY){
+		if(currentPrimarySpellCooldown<=0) {
+
+			if (currentPrimarySpell == Spell.FIREBALL) {
+				currentPrimarySpellCooldown = 100;
+				return new Fireball((int) x, (int) y, mouseX, mouseY);
+			}
+
+		}
+		return null;
 	}
 
-	public void teleport(int mouseX, int mouseY){
-		if(teleportCooldown <= 0){
-			this.x = mouseX;
-			this.y = mouseY;
-			this.teleportCooldown = 500;
+	public Spell castSecondarySpell(int mouseX, int mouseY){
+		if(currentSecondarySpellCooldown<=0) {
+
+			if (currentSecondarySpell == Spell.TELEPORT) {
+				currentSecondarySpellCooldown = 500;
+				return new Teleport(this,mouseX, mouseY);
+			}
+
 		}
+		return null;
 	}
 
 }
