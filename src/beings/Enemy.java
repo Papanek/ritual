@@ -39,6 +39,7 @@ public class Enemy extends Humanoid implements Movable, AI {
     @Override
     public void draw(Graphics2D g) {
         g.translate(x,y);
+
         g.drawImage(characterImage,0,0,null);
         g.translate(-x,-y);
     }

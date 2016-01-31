@@ -39,12 +39,12 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
         }
         catch(IOException e){System.out.print("");}
         characterImage = new BufferedImage(width,height, BufferedImage.TYPE_INT_RGB);
-        player = new Player(10,10,10,2);
+        player = new Player(10,10,92,2);
         s = new Summoner(275, 375, 20, 0);
         enemies = new LinkedList<>();
         spells = new LinkedList<>();
 
-        for(int i = 0; i<10; i++){
+        for(int i = 0; i<3; i++){
             enemies.add(new Enemy(100*i,100*i,100,2,Enemy.SPIDER));
         }
 
@@ -176,7 +176,6 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
     	  if(e.getButton() == MouseEvent.BUTTON1) {
 
               spells.add(player.castSpell(mouseX,mouseY));
-
 
     	  }else if(e.getButton() == MouseEvent.BUTTON3){
     		  player.teleport(mouseX, mouseY);

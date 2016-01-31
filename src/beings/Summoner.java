@@ -30,4 +30,5 @@ public class Summoner extends Humanoid {
 	public void draw(Graphics2D g) {
 		g.drawImage(characterImage,(int)this.y,(int)this.x,null);
 	}
+
 }

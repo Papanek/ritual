@@ -4,6 +4,8 @@ import interfaces.Collidable;
 import interfaces.Destructable;
 import interfaces.Drawable;
 
+import java.awt.*;
+
 /**
  * ******************************
  * Project: ritual
@@ -25,6 +27,7 @@ public abstract class Humanoid implements Drawable, Collidable, Destructable {
         this.y = y;
         this.maxSpeed = maxSpeed;
     }
+
     @Override
     public void takeDamage(int damage){
         this.health -= damage;
@@ -45,6 +48,14 @@ public abstract class Humanoid implements Drawable, Collidable, Destructable {
     @Override
     public double getWidth() {
         return width;
+    }
+
+    @Override
+    public void drawHealthBar(int health, Graphics2D g) {
+        g.setColor(Color.black);
+        g.fillRect(0 - 5, 0 - 5, 50, 10);
+        g.setColor(Color.red);
+        g.fillRect(0 - 3, 0 - 3, health/2, 6);
     }
 
     public double getX() {

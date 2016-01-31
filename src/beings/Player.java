@@ -25,6 +25,7 @@ public class Player extends Humanoid implements Movable, Controllable{
 	File img = new File("resource/wizardleftbigger.png");
 	BufferedImage characterImage;
 	private int teleportCooldown;
+	private int flinchCooldown;
 	public Player(int x, int y, int health, int maxSpeed) {
 		super(x, y, health, maxSpeed);
 		height = 50;
@@ -39,8 +40,19 @@ public class Player extends Humanoid implements Movable, Controllable{
 	public void draw(Graphics2D g) {
 		//g.setColor(Color.black);
 		g.translate(x,y);
+		super.drawHealthBar(health,g);
 		g.drawImage(characterImage,0,0,null);
 		g.translate(-x,-y);
+	}
+
+	@Override
+	public void takeDamage(int damage){
+		System.out.println("player health: " + health);
+		if(flinchCooldown<=0){
+			health-=damage;
+			flinchCooldown=12;
+		}
+
 	}
 
 	public void setUp(){
@@ -118,6 +130,7 @@ public class Player extends Humanoid implements Movable, Controllable{
 		if(movingLeft)this.x -= this.speedLeft;
 		if(movingRight)this.x += this.speedRight;
 		teleportCooldown--;
+		flinchCooldown--;
 	}
 
 	@Override

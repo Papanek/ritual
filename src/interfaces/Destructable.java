@@ -1,5 +1,7 @@
 package interfaces;
 
+import java.awt.*;
+
 /**
  * ******************************
  * Project: ritual
@@ -9,5 +11,6 @@ package interfaces;
  **/
 public interface Destructable {
     void takeDamage(int damage);
+    void drawHealthBar(int health,Graphics2D g);
     boolean isAlive();
 }
