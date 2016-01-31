@@ -21,8 +21,8 @@ import java.io.IOException;
 public class Player extends Humanoid implements Movable, Controllable{
 	private final String PLAYER_LEFT = "resource/wizardleftbigger.png";
 	private final String PLAYER_RIGHT = "resource/wizardrightbigger.png";
-	private final String PLAYER_UP = "resource/wizardupdownbigger.png";
-	private final String PLAYER_DOWN = "resource/wizardupdownbigger.png";
+	private final String PLAYER_UP = "resource/wizardup.png";
+	private final String PLAYER_DOWN = "resource/wizarddown.png";
 
 	boolean movingUP = false, movingDown = false, movingLeft = false, movingRight = false;
 	private float speedUp=0, speedDown=0, speedLeft=0, speedRight=0;
@@ -125,9 +125,12 @@ public class Player extends Humanoid implements Movable, Controllable{
 			img=new File(PLAYER_RIGHT);
 		} else if(speedLeft>0){
 			img=new File(PLAYER_LEFT);
-		} else if(speedUp>0||speedDown>0){
+		} else if(speedUp>0){
+			img=new File(PLAYER_UP);
+		} else if(speedDown>0){
 			img=new File(PLAYER_DOWN);
 		}
+
 		try{
 			characterImage= ImageIO.read(img);
 		}
