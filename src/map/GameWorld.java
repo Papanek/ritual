@@ -110,8 +110,8 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         drawBackground(g);
-        drawCreatures(g);
         drawSpells(g);
+        drawCreatures(g);
         drawSummoner(g);
         drawScoreTime(g);
         drawHighScore(g);

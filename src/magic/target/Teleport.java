@@ -11,7 +11,7 @@ import beings.goodguys.Player;
  **/
 public class Teleport extends TargetSpell {
     public Teleport(Player p, double mouseX, double mouseY) {
-        super(mouseX, mouseY, "resource/summonerbigger.png");
+        super(mouseX, mouseY, "resource/teleport.png");
         p.setX(mouseX);
         p.setY(mouseY);
         System.out.print("Tele");

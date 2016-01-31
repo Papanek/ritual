@@ -17,10 +17,10 @@ import java.util.LinkedList;
  **/
 public class CollisionDetector {
 
-    boolean flinching = false;
-
     public void detectPlayerEnemyCollision(Player p, LinkedList<Enemy> e) {
-        for (Enemy enemy : e) {
+        Enemy enemy;
+        for (int i=0; i<e.size(); i++) {
+            enemy = e.get(i);
             if (checkCollision(p, enemy)) {
                 p.takeDamage(1);
             }
@@ -34,9 +34,11 @@ public class CollisionDetector {
     }
 
     public boolean detectEnemyEnemyCollision(Enemy x, LinkedList<Enemy> enemies) {
-        for (Enemy e : enemies) {
-            if (!x.equals(e)) {
-                if (checkCollision(x, e)) {
+        Enemy enemy;
+        for (int i=0; i<enemies.size(); i++) {
+            enemy = enemies.get(i);
+            if (!x.equals(enemy)) {
+                if (checkCollision(x, enemy)) {
                     return true;
                 }
             }
@@ -45,8 +47,12 @@ public class CollisionDetector {
     }
 
     public void detectSpellCollision(LinkedList<Spell> s, LinkedList<Enemy> e) {
-        for (Spell spell : s) {
-            for (Enemy enemy : e) {
+        Spell spell;
+        Enemy enemy;
+        for (int i=0; i<s.size(); i++) {
+            spell=s.get(i);
+            for (int j=0; j<e.size(); j++) {
+                enemy = e.get(j);
                 if (checkCollision(spell, enemy)) {
                     enemy.takeDamage(spell.getDamage());
                     spell.killSpell();
@@ -56,7 +62,9 @@ public class CollisionDetector {
     }
 
     public void detectSummonerCollision(Summoner s, LinkedList<Enemy> e) {
-        for (Enemy enemy : e) {
+        Enemy enemy;
+        for (int i=0; i<e.size(); i++) {
+            enemy = e.get(i);
             if (checkCollision(enemy, s)) {
                 s.takeDamage(2);
             }

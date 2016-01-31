@@ -58,7 +58,7 @@ public abstract class Enemy extends Humanoid implements AI {
     public void moveAway() {
         if (reboundTimer < 0) {
             speedY *= -rand.nextFloat() * 1.5;
-            speedX *= rand.nextFloat() * 1.5;
+            speedX *= (rand.nextFloat() * 2)+1;
             reboundTimer = 100;
         }
     }
