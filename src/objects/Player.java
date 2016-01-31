@@ -28,7 +28,7 @@ public class Player extends Creature implements Movable, Controllable{
 	public void draw(Graphics2D g) {
 		g.setColor(Color.black);
 		g.translate(x,y);
-		g.drawOval(0,0,100,100);
+		g.drawRect(0,0,100,100);
 		g.translate(-x,-y);
 		for(Spell s : spells){
 			s.draw(g);

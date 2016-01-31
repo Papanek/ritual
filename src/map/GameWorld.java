@@ -1,6 +1,7 @@
 package map;
 
 import interfaces.Drawable;
+import objects.CollisionDetector;
 import objects.Enemy;
 import objects.Player;
 import objects.Summoner;
@@ -25,11 +26,13 @@ import java.util.LinkedList;
  * ******************************
  **/
 public class GameWorld extends JPanel implements MouseListener, KeyListener{
+    CollisionDetector detector;
     private LinkedList<Enemy> enemies;
     File img = new File("resource/background.png");
     BufferedImage characterImage, backgroundImg;
     private Player p;
     public GameWorld(int width, int height){
+        detector = new CollisionDetector();
         try{
             backgroundImg = ImageIO.read(img);
         }
@@ -37,8 +40,8 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
         characterImage = new BufferedImage(width,height, BufferedImage.TYPE_INT_RGB);
         p = new Player(10,10,10,2);
         enemies = new LinkedList<>();
-        for(int i = 0; i<10; i++){
-            enemies.add(new Enemy(10*i,10*i,100,1));
+        for(int i = 0; i<1; i++){
+            enemies.add(new Enemy(10*i,22*i,100,1));
         }
         addKeyListener(this);
         addMouseListener(this);
@@ -48,7 +51,7 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
         while(true){
             moveEnemies();
             p.move();
-
+            detector.detectPlayerCollision(p,enemies);
             repaint();
 
             try {
@@ -84,8 +87,9 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
 
     private void moveEnemies(){
         for(Enemy e : enemies){
-            e.moveTo(p, new Summoner(10,10,10,10));
-            e.move();
+
+            //e.moveTo(p, new Summoner(10,10,10,10));
+            //e.move();
         }
     }
 
@@ -131,15 +135,15 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
 
     @Override
     public void mouseClicked(MouseEvent e) {
-    	int mouseX = e.getX();
-    	int mouseY = e.getY();
-    	System.out.println(mouseX + " " + mouseY);
-    	p.castSpell(mouseX, mouseY);
+
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        int mouseX = e.getX();
+        int mouseY = e.getY();
+        System.out.println(mouseX + " " + mouseY);
+        p.castSpell(mouseX, mouseY);
     }
 
     @Override
