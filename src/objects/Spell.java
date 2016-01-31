@@ -14,7 +14,6 @@ import interfaces.Movable;
  * ******************************
  **/
 
-//TODO kill spell once it is off of screen
 public class Spell implements Drawable, Movable{
     protected int damage;
     protected float speedX;
@@ -23,7 +22,7 @@ public class Spell implements Drawable, Movable{
     protected Color spellColor;
     
     public Spell(int x, int y, float speedX, float speedY){
-    	this.x = x ; // adjust this to get spell to shoot from staff
+    	this.x = x + 50 ; // adjust this to get spell to shoot from staff
     	this.y = y + 50; // and this
     	this.speedX = speedX;
     	this.speedY = speedY;

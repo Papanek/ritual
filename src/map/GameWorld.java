@@ -33,7 +33,7 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
         try{
             backgroundImg = ImageIO.read(img);
         }
-        catch(IOException e){System.out.print("fuck");}
+        catch(IOException e){System.out.print("");}
         characterImage = new BufferedImage(width,height, BufferedImage.TYPE_INT_RGB);
         p = new Player(10,10,10,2);
         enemies = new LinkedList<>();
@@ -131,15 +131,15 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
 
     @Override
     public void mouseClicked(MouseEvent e) {
-    	int mouseX = e.getX();
-    	int mouseY = e.getY();
-    	System.out.println(mouseX + " " + mouseY);
-    	p.castSpell(mouseX, mouseY);
+    	
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+    	int mouseX = e.getX();
+    	int mouseY = e.getY();
+    	System.out.println(mouseX + " " + mouseY);
+    	p.castSpell(mouseX, mouseY);
     }
 
     @Override
