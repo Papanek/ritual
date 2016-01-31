@@ -8,7 +8,6 @@ import interfaces.Drawable;
 import magic.Spell;
 import main.Driver;
 import util.CollisionDetector;
-import util.Driver;
 import util.ScoreKeeper;
 import util.MobSpawner;
 import javax.imageio.ImageIO;
