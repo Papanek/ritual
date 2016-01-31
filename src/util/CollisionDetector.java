@@ -1,8 +1,8 @@
 package util;
 
-import beings.Enemy;
-import beings.Player;
-import beings.Summoner;
+import beings.badguys.Enemy;
+import beings.goodguys.Player;
+import beings.goodguys.Summoner;
 import interfaces.Collidable;
 import magic.Spell;
 

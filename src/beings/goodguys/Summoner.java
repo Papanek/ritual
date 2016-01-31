@@ -1,5 +1,6 @@
-package beings;
+package beings.goodguys;
 
+import beings.Humanoid;
 import magic.Spell;
 
 import javax.imageio.ImageIO;

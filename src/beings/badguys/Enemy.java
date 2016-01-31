@@ -1,5 +1,8 @@
-package beings;
+package beings.badguys;
 
+import beings.Humanoid;
+import beings.goodguys.Player;
+import beings.goodguys.Summoner;
 import interfaces.AI;
 
 import javax.imageio.ImageIO;
@@ -16,8 +19,8 @@ import java.util.Random;
  * Date :   1/29/2016
  * ******************************
  **/
-public class Enemy extends Humanoid implements AI {
-    public static final String SPIDER = "resource/enemybigger.png";
+public abstract class Enemy extends Humanoid implements AI {
+    public static final int SPIDER = 1;
     private int reboundTimer = 0;
     private float speed = .011f;
     File img;

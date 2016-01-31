@@ -1,7 +1,7 @@
 package interfaces;
 
-import beings.Player;
-import beings.Summoner;
+import beings.goodguys.Player;
+import beings.goodguys.Summoner;
 
 /**
  * ******************************

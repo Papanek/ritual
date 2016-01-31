@@ -1,6 +1,6 @@
 package magic.target;
 
-import beings.Player;
+import beings.goodguys.Player;
 
 /**
  * ******************************

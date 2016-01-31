@@ -1,4 +1,4 @@
-package util;
+package main;
 
 import map.GameWorld;
 
@@ -29,7 +29,7 @@ public class Driver {
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
-        panel.start();
+        panel.setUpGame();
     }
 
     public static void closeApp(){

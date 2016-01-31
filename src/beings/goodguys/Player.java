@@ -1,5 +1,6 @@
-package beings;
+package beings.goodguys;
 
+import beings.Humanoid;
 import interfaces.Controllable;
 import magic.Spell;
 import magic.projectiles.Fireball;

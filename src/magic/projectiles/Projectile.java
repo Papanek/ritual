@@ -20,4 +20,8 @@ public abstract class Projectile extends Spell {
         speedX = (float) Math.cos(theta) * 6;
         speedY = (float) Math.sin(theta) * 6;
     }
+    @Override
+    public void update() {
+        move();
+    }
 }

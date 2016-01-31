@@ -12,8 +12,5 @@ public class Fireball extends Projectile {
         super(x, y, mouseX, mouseY, "resource/fireballbigger.png");
     }
 
-    @Override
-    public void update() {
-        move();
-    }
+
 }

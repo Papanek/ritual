@@ -1,12 +1,14 @@
 package map;
 
-import beings.Enemy;
-import beings.Player;
-import beings.Summoner;
+import beings.badguys.Enemy;
+import beings.badguys.Spider;
+import beings.goodguys.Player;
+import beings.goodguys.Summoner;
 import interfaces.Drawable;
 import magic.Spell;
+import main.Driver;
 import util.CollisionDetector;
-import util.Driver;
+import util.MobSpawner;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -35,9 +37,11 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
     BufferedImage characterImage, backgroundImg;
     private Player player;
     private Summoner summoner;
+    MobSpawner spawner;
 
     public GameWorld(int width, int height) {
         running = true;
+        spawner = new MobSpawner();
         detector = new CollisionDetector();
         try {
             backgroundImg = ImageIO.read(img);
@@ -45,20 +49,11 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
             System.out.print("");
         }
         characterImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-        player = new Player(10, 10, 2);
-        summoner = new Summoner(375, 275, 0);
-        enemies = new LinkedList<>();
-        spells = new LinkedList<>();
-
-        for (int i = 0; i < 20; i++) {
-            enemies.add(new Enemy(100 * i, 100 * i, 2, Enemy.SPIDER));
-        }
-
         addKeyListener(this);
         addMouseListener(this);
     }
 
-    public void start () {
+    public void startGame() {
         while(running){
             if(!player.isAlive()){
                 gameOver(true);
@@ -77,21 +72,18 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
                 System.out.println("Sleep Interrupted");
             }
         }
-
     }
 
-    private void restartGame(){
+    public void setUpGame(){
         player = new Player(10,10,2);
         summoner = new Summoner(375, 275, 0);
         enemies = new LinkedList<>();
         spells = new LinkedList<>();
-
-        for(int i = 0; i<20; i++){
-            enemies.add(new Enemy(100*i,100*i,2,Enemy.SPIDER));
+        for(int i=0; i<10; i++){
+            enemies.add(new Spider(i*100,i*125,3));
         }
-
         running = true;
-        start();
+        startGame();
     }
 
     @Override
@@ -112,7 +104,7 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
             running=false;
             int output = JOptionPane.showConfirmDialog(null,"Game over, would you like to restart the game?","You Lost",JOptionPane.YES_NO_OPTION);
             if(output == JOptionPane.YES_OPTION){
-                restartGame();
+                setUpGame();
             }
             else if(output == JOptionPane.NO_OPTION){
                 Driver.closeApp();
