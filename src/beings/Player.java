@@ -129,6 +129,18 @@ public class Player extends Humanoid implements Movable, Controllable{
 		if(movingDown)this.y += this.speedDown;
 		if(movingLeft)this.x -= this.speedLeft;
 		if(movingRight)this.x += this.speedRight;
+		if(this.x>800-width){
+			this.x = 800-width;
+		} else if(this.x<0){
+			this.x = 0;
+		}
+		if(this.y>600-height){
+			this.y = 600-height;
+		}
+		if(this.y<0){
+			this.y = 0;
+		}
+
 		teleportCooldown--;
 		flinchCooldown--;
 	}
