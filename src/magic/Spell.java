@@ -1,5 +1,6 @@
 package magic;
 
+import effects.Effect;
 import interfaces.Collidable;
 import interfaces.Drawable;
 import interfaces.Movable;
@@ -29,6 +30,7 @@ public abstract class Spell implements Drawable, Movable, Collidable, Updatable 
     protected int x, y, width = 1, height = 1;
     protected File img;
     protected BufferedImage spellImage;
+    protected Effect effect;
 
     public Spell(String imgLoc) {
         img = new File(imgLoc);
@@ -37,6 +39,10 @@ public abstract class Spell implements Drawable, Movable, Collidable, Updatable 
         } catch (IOException e) {
             System.out.print("spellfuck");
         }
+    }
+
+    public Effect getEffect(){
+        return effect;
     }
 
     public int getDamage() {

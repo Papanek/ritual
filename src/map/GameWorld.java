@@ -4,6 +4,7 @@ import beings.badguys.Enemy;
 import beings.badguys.Spider;
 import beings.goodguys.Player;
 import beings.goodguys.Summoner;
+import effects.Effect;
 import interfaces.Drawable;
 import magic.Spell;
 import main.Driver;
@@ -36,6 +37,7 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
     CollisionDetector detector;
     private LinkedList<Enemy> enemies;
     private LinkedList<Spell> spells;
+    private LinkedList<Effect> effects;
     private boolean running;
     File img = new File("resource/background.png");
     BufferedImage characterImage, backgroundImg;
@@ -69,6 +71,7 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
             addEnemies();
             updateEnemies();
             updateSpells();
+            updateEffects();
             updateScoring();
             detector.detectPlayerEnemyCollision(player, enemies);
             detector.detectSpellCollision(spells, enemies);
@@ -97,6 +100,7 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
         summoner = new Summoner(375, 275, 0);
         enemies = new LinkedList<>();
         spells = new LinkedList<>();
+        effects = new LinkedList<>();
         spawner = new MobSpawner();
         timer = new Timer();
         score = new Score(timer);
@@ -112,6 +116,7 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
         drawBackground(g);
         drawSpells(g);
         drawCreatures(g);
+        drawEffects(g);
         drawSummoner(g);
         drawScoreTime(g);
         drawHighScore(g);
@@ -135,7 +140,6 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
 
     private void drawCreatures(Graphics2D g){
         player.draw(g);
-        player.draw(g);
         for(int i=0; i<enemies.size(); i++){
             enemies.get(i).draw(g);
         }
@@ -146,8 +150,14 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
     }
 
     private void drawSpells(Graphics2D g) {
-        for (Spell s : spells) {
-            s.draw(g);
+        for(int i=0; i<spells.size(); i++){
+            spells.get(i).draw(g);
+        }
+    }
+
+    private void drawEffects(Graphics2D g){
+        for(int i=0; i<effects.size(); i++){
+            effects.get(i).draw(g);
         }
     }
 
@@ -177,6 +187,17 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
                 s.update();
             } else {
                 spells.remove(s);
+            }
+        }
+    }
+
+    private void updateEffects(){
+        for (int i = 0; i < effects.size(); i++) {
+            Effect e = effects.get(i);
+            if (e.isAlive()) {
+                e.update();
+            } else {
+                effects.remove(e);
             }
         }
     }
@@ -249,6 +270,10 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
 
         }
         if (spell != null) {
+            if(spell.getEffect()!=null) {
+                effects.add(spell.getEffect());
+                System.out.print("Effect");
+            }
             spells.add(spell);
         }
     }
