@@ -43,4 +43,11 @@ public class Spell implements Drawable, Movable{
 		this.x += speedX;
 		this.y += speedY;
 	}
+	
+	public boolean isInGameWorld(){
+		if(this.x > 800 || this.y > 600){
+			return false;
+		}
+		return true;
+	}
 }

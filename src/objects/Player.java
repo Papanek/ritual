@@ -30,7 +30,8 @@ public class Player extends Creature implements Movable, Controllable{
 		g.translate(x,y);
 		g.drawOval(0,0,100,100);
 		g.translate(-x,-y);
-		for(Spell s : spells){
+		for(int i = 0; i < spells.size(); i++){
+			Spell s = spells.get(i);
 			s.draw(g);
 		}
 	}
@@ -109,8 +110,13 @@ public class Player extends Creature implements Movable, Controllable{
 		if(movingDown)this.y += this.speedDown;
 		if(movingLeft)this.x -= this.speedLeft;
 		if(movingRight)this.x += this.speedRight;
-		for(Spell s : spells){
-			s.move();
+		for(int i = 0; i < spells.size(); i++){
+			Spell s = spells.get(i);
+			if(s.isInGameWorld()){
+				s.move();
+			}else{
+				spells.remove(s);
+			}
 		}
 	}
 
@@ -133,7 +139,7 @@ public class Player extends Creature implements Movable, Controllable{
 	public void moveRight(boolean keyPressed) {
 		movingRight = keyPressed ;
 	}
-	
+
 	/**
 	 * Takes the x and y coordinates of the mouse when clicked and creates a new spell with a speedX and speedY towards the mouse
 	 * starting at the player's position
@@ -143,14 +149,14 @@ public class Player extends Creature implements Movable, Controllable{
 	 */
 	public void castSpell(int mouseX, int mouseY){
 		float spellSpeedX, spellSpeedY;
-		spellSpeedX = (float) (mouseX - this.x + 50);
-		spellSpeedY = (float) (mouseY -this.y + 50);
-		
+		spellSpeedX = (float) (mouseX - this.x);
+		spellSpeedY = (float) (mouseY -this.y);
+
 		double theta = Math.atan2(spellSpeedY, spellSpeedX);
 		spellSpeedX = (float) Math.cos(theta)*6;
 		spellSpeedY = (float) Math.sin(theta)*6;
-		
+
 		spells.add(new Spell((int)this.x, (int)this.y, spellSpeedX, spellSpeedY));
 	}
-	
+
 }
