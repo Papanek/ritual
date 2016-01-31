@@ -26,8 +26,8 @@ public class Player extends Humanoid implements Movable, Controllable{
 	BufferedImage characterImage;
 	private int teleportCooldown;
 	private int flinchCooldown;
-	public Player(int x, int y, int health, int maxSpeed) {
-		super(x, y, health, maxSpeed);
+	public Player(int x, int y, int maxSpeed) {
+		super(x, y, maxSpeed);
 		height = 50;
 		width  = 50;
 		try{

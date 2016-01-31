@@ -14,14 +14,16 @@ import java.awt.*;
  * ******************************
  **/
 public abstract class Humanoid implements Drawable, Collidable, Destructable {
-    protected int health, width, height;
+    protected int health, maxHealth;
+    protected int width, height;
     protected double x, y;
     protected float speedX, speedY;
     protected float speedUp, speedDown, speedLeft, speedRight;
     protected float maxSpeed;
     protected boolean alive;
-    public Humanoid(int x, int y, int health, int maxSpeed){
-        this.health = health;
+    public Humanoid(int x, int y, int maxSpeed){
+        this.health = 100;
+        this.maxHealth = 100;
         alive = true;
         this.x = x;
         this.y = y;
@@ -31,7 +33,7 @@ public abstract class Humanoid implements Drawable, Collidable, Destructable {
     @Override
     public void takeDamage(int damage){
         this.health -= damage;
-        if(health<0){
+        if(health<=0){
             alive = false;
         }
     }
@@ -55,7 +57,7 @@ public abstract class Humanoid implements Drawable, Collidable, Destructable {
         g.setColor(Color.black);
         g.fillRect(0 - 5, 0 - 5, 50, 10);
         g.setColor(Color.red);
-        g.fillRect(0 - 3, 0 - 3, health/2, 6);
+        g.fillRect(0 - 3, 0 - 3, ((50 * health)/maxHealth)-4, 6);
     }
 
     public double getX() {

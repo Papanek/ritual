@@ -18,8 +18,8 @@ public class Summoner extends Humanoid {
 	BufferedImage characterImage;
     ArrayList<Spell> spells = new ArrayList<>();
 
-	public Summoner(int x, int y, int health, int maxSpeed) {
-		super(x, y, health, maxSpeed);
+	public Summoner(int x, int y, int maxSpeed) {
+		super(x, y, maxSpeed);
 		try{
 			characterImage= ImageIO.read(img);
 		}

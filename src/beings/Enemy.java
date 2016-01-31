@@ -25,8 +25,8 @@ public class Enemy extends Humanoid implements Movable, AI {
     BufferedImage characterImage;
     Random rand;
 
-    public Enemy(int x, int y, int health, int maxSpeed, String imgLoc) {
-        super(x, y, health, maxSpeed);
+    public Enemy(int x, int y, int maxSpeed, String imgLoc) {
+        super(x, y, maxSpeed);
         rand = new Random();
         width = 40; height = 40;
         img = new File(imgLoc);
@@ -39,7 +39,7 @@ public class Enemy extends Humanoid implements Movable, AI {
     @Override
     public void draw(Graphics2D g) {
         g.translate(x,y);
-
+        super.drawHealthBar(health, g);
         g.drawImage(characterImage,0,0,null);
         g.translate(-x,-y);
     }

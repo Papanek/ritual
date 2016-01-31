@@ -21,7 +21,7 @@ public class CollisionDetector {
     public void detectPlayerEnemyCollision(Player p, LinkedList<Enemy> e){
         for(Enemy enemy : e ){
             if(checkCollision(p,enemy)){
-                p.takeDamage(1);
+                p.takeDamage(2);
                 System.out.println("Im Hurt");
             }
         }
