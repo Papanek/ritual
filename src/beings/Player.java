@@ -1,6 +1,7 @@
 package beings;
 
 import interfaces.Controllable;
+import interfaces.Destructable;
 import interfaces.Movable;
 import magic.Spell;
 
@@ -189,4 +190,8 @@ public class Player extends Humanoid implements Movable, Controllable{
 		}
 	}
 
+	@Override
+	public boolean isAlive() {
+		return alive;
+	}
 }
