@@ -1,6 +1,5 @@
 package magic.target;
 
-import beings.Player;
 import magic.Spell;
 
 /**
@@ -13,8 +12,8 @@ import magic.Spell;
 public abstract class TargetSpell extends Spell {
     public TargetSpell(double mouseX, double mouseY, String imgLoc) {
         super(imgLoc);
-        this.x=(int)mouseX;
-        this.y=(int)mouseY;
-        damage=0;
+        this.x = (int) mouseX;
+        this.y = (int) mouseY;
+        damage = 0;
     }
 }

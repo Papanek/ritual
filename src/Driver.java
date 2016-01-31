@@ -11,9 +11,9 @@ import java.awt.*;
  * ******************************
  **/
 public class Driver {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         JFrame frame = new JFrame();
-        GameWorld panel = new GameWorld(800,600);
+        GameWorld panel = new GameWorld(800, 600);
         panel.setPreferredSize(new Dimension(800, 600));
         panel.setFocusable(true);
         panel.requestFocusInWindow();
