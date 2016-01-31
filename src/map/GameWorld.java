@@ -59,6 +59,7 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
             moveSpells();
             player.move();
             detector.detectPlayerEnemyCollision(player,enemies);
+            detector.detectSpellCollision(spells,enemies);
             repaint();
             try {
                 Thread.sleep(10);
@@ -114,13 +115,18 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
         s.draw(g);
     }
 
-    private void moveEnemies(){
-        for(Enemy e : enemies){
-            if(detector.detectEnemyEnemyCollision(e,enemies)) {
-                e.moveAway();
+    private void moveEnemies() {
+        for (int i = 0; i < enemies.size(); i++) {
+            Enemy e = enemies.get(i);
+            if(e.isAlive()) {
+                if (detector.detectEnemyEnemyCollision(e, enemies)) {
+                    e.moveAway();
+                }
+                e.moveTo(player, new Summoner(10, 10, 10, 10));
+                e.move();
+            } else {
+                enemies.remove(e);
             }
-            e.moveTo(player, new Summoner(10, 10, 10, 10));
-            e.move();
         }
     }
 

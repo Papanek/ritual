@@ -37,6 +37,16 @@ public class CollisionDetector {
         return false;
     }
 
+    public void detectSpellCollision(LinkedList<Spell> s, LinkedList<Enemy> e){
+        for(Spell spell : s ){
+            for(Enemy enemy : e) {
+                if(checkCollision(spell,enemy)){
+                    enemy.takeDamage(spell.getDamage());
+                    spell.killSpell();
+                }
+            }
+        }
+    }
 
     public void detectSummonerCollision(Summoner s, LinkedList<Enemy> e){
         if(!flinching){
@@ -50,20 +60,6 @@ public class CollisionDetector {
                     //}
                 //}
             //}
-        }
-    }
-
-    public void detectSpellCollision(LinkedList<Spell> s, LinkedList<Enemy> e){
-        for(Spell spell : s ){
-            for(Enemy enemy : e) {
-                //if (sx > ex && sx < ex + ew) {
-                   // if (sy > ey && sy < ey + eh) {
-                        //remove spell
-                        //hurt enemy
-                      //  break;
-                  // }
-               // }
-            }
         }
     }
 
