@@ -22,7 +22,6 @@ public class CollisionDetector {
         for(Enemy enemy : e ){
             if(checkCollision(p,enemy)){
                 p.takeDamage(2);
-                System.out.println("Im Hurt");
             }
         }
     }
