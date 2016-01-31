@@ -31,6 +31,7 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
     File img = new File("resource/background.png");
     BufferedImage characterImage, backgroundImg;
     private Player p;
+    private Summoner s;
     public GameWorld(int width, int height){
         detector = new CollisionDetector();
         try{
@@ -39,6 +40,7 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
         catch(IOException e){System.out.print("");}
         characterImage = new BufferedImage(width,height, BufferedImage.TYPE_INT_RGB);
         p = new Player(10,10,10,2);
+        s = new Summoner(275, 375, 20, 0);
         enemies = new LinkedList<>();
         for(int i = 0; i<2; i++){
             enemies.add(new Enemy(10*i,10*i,100,1));
@@ -70,6 +72,7 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         drawBackground(g);
         drawCreatures(g);
+        drawSummoner(g);
         _g.drawImage(characterImage,0,0,null);
         g.dispose();
     }
@@ -83,6 +86,10 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
 
     private void drawBackground(Graphics2D g){
         g.drawImage(backgroundImg,0,0,null);
+    }
+
+    private void drawSummoner(Graphics2D g){
+        s.draw(g);
     }
 
     private void moveEnemies(){
