@@ -7,6 +7,9 @@ import beings.goodguys.Summoner;
 import interfaces.Drawable;
 import magic.Spell;
 import main.Driver;
+import scoring.HighScore;
+import scoring.Score;
+import scoring.Timer;
 import util.CollisionDetector;
 import util.ScoreKeeper;
 import util.MobSpawner;
@@ -20,7 +23,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.LinkedList;
+import java.util.*;
 
 /**
  * ******************************
@@ -38,12 +41,15 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
     BufferedImage characterImage, backgroundImg;
     private Player player;
     private Summoner summoner;
-    private ScoreKeeper score;
+    private Score score;
+    private Timer timer;
+    private HighScore highScore;
     MobSpawner spawner;
 
     public GameWorld(int width, int height) {
         running = true;
         detector = new CollisionDetector();
+        highScore = new HighScore();
         try {
             backgroundImg = ImageIO.read(img);
         } catch (IOException e) {
@@ -63,7 +69,7 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
             addEnemies();
             updateEnemies();
             updateSpells();
-            updateScore();
+            updateScoring();
             detector.detectPlayerEnemyCollision(player, enemies);
             detector.detectSpellCollision(spells, enemies);
             detector.detectSummonerCollision(summoner, enemies);
@@ -91,8 +97,9 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
         summoner = new Summoner(375, 275, 0);
         enemies = new LinkedList<>();
         spells = new LinkedList<>();
-        score = new ScoreKeeper();
         spawner = new MobSpawner();
+        timer = new Timer();
+        score = new Score(timer);
         running = true;
         startGame();
     }
@@ -106,7 +113,8 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
         drawCreatures(g);
         drawSpells(g);
         drawSummoner(g);
-        drawScore(g);
+        drawScoreTime(g);
+        drawHighScore(g);
         _g.drawImage(characterImage, 0, 0, null);
         g.dispose();
     }
@@ -116,6 +124,7 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
             running=false;
             int output = JOptionPane.showConfirmDialog(null,"Game over, would you like to restart the game?","You Lost",JOptionPane.YES_NO_OPTION);
             if(output == JOptionPane.YES_OPTION){
+                highScore.addScore(score);
                 setUpGame();
             }
             else if(output == JOptionPane.NO_OPTION){
@@ -146,12 +155,19 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
         g.drawImage(backgroundImg, 0, 0, null);
     }
 
-    private void drawScore(Graphics2D g){
-        String scoreStr = "Score: " + Integer.toString(score.getScore());
+    private void drawScoreTime(Graphics2D g){
+        String scoreStr = "Time: " + Integer.toString(timer.getTimer()) + "     " +
+                "Score: " + score.getScore() + "        " +
+                "Enemies Killed: " + score.getEnemiesKilled() + "       ";
         g.setColor(Color.black);
         Font trb = new Font("TimesRoman", Font.BOLD, 18);
         g.setFont(trb);
         g.drawString(scoreStr, 10, 20);
+    }
+
+    private void drawHighScore(Graphics2D g){
+        String highScoreStr = "High Score: " + highScore.getHighScore();
+        g.drawString(highScoreStr, 620, 20);
     }
 
     private void updateSpells() {
@@ -165,8 +181,10 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
         }
     }
 
-    private void updateScore(){
+    private void updateScoring(){
+        timer.update();
         score.update();
+        highScore.update();
     }
 
     private void updateEnemies() {
@@ -180,6 +198,7 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
                 e.update();
             } else {
                 enemies.remove(e);
+                score.killedEnemy();
             }
         }
     }
