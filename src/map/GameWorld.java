@@ -64,7 +64,7 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
 
     public void startGame() {
         while(running){
-            if(!player.isAlive()){
+            if(!player.isAlive() || !summoner.isAlive()){
                 gameOver(true);
             }
             player.update();

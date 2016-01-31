@@ -50,5 +50,8 @@ public class Summoner extends Humanoid {
             health -= damage;
             flinchCooldown = 20;
         }
+        if (health <= 0) {
+            alive = false;
+        }
     }
 }
