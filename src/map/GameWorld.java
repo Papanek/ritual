@@ -57,9 +57,9 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
 
     public void start () {
         while(running){
-            moveEnemies();
-            moveSpells();
-            player.move();
+            player.update();
+            updateEnemies();
+            updateSpells();
             detector.detectPlayerEnemyCollision(player,enemies);
             detector.detectSpellCollision(spells,enemies);
             detector.detectSummonerCollision(summoner,enemies);
@@ -87,23 +87,6 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
         g.dispose();
     }
 
-    private void drawSpells(Graphics2D g){
-        for (Spell s : spells) {
-            s.draw(g);
-        }
-    }
-
-    private void moveSpells(){
-        for(int i = 0; i < spells.size(); i++){
-            Spell s = spells.get(i);
-            if(s.isInGameWorld()){
-                s.move();
-            }else{
-                spells.remove(s);
-            }
-        }
-    }
-
     private void drawCreatures(Graphics2D g){
         if(!player.isAlive()){
             running = false;
@@ -114,15 +97,32 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
         }
     }
 
-    private void drawBackground(Graphics2D g){
-        g.drawImage(backgroundImg,0,0,null);
-    }
-
     private void drawSummoner(Graphics2D g){
         summoner.draw(g);
     }
 
-    private void moveEnemies() {
+    private void drawSpells(Graphics2D g){
+        for (Spell s : spells) {
+            s.draw(g);
+        }
+    }
+
+    private void drawBackground(Graphics2D g){
+        g.drawImage(backgroundImg,0,0,null);
+    }
+
+    private void updateSpells(){
+        for(int i = 0; i < spells.size(); i++){
+            Spell s = spells.get(i);
+            if(s.isInGameWorld()){
+                s.update();
+            }else{
+                spells.remove(s);
+            }
+        }
+    }
+
+    private void updateEnemies() {
         for (int i = 0; i < enemies.size(); i++) {
             Enemy e = enemies.get(i);
             if(e.isAlive()) {
@@ -130,7 +130,7 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
                     e.moveAway();
                 }
                 e.moveTo(player, summoner);
-                e.move();
+                e.update();
             } else {
                 enemies.remove(e);
             }

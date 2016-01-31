@@ -18,7 +18,7 @@ import java.io.IOException;
  * Date :   1/29/2016
  * ******************************
  **/
-public class Player extends Humanoid implements Movable, Controllable{
+public class Player extends Humanoid implements Controllable{
 	private final String PLAYER_LEFT = "resource/wizardleftbigger.png";
 	private final String PLAYER_RIGHT = "resource/wizardrightbigger.png";
 	private final String PLAYER_UP = "resource/wizardupdownbigger.png";
@@ -47,6 +47,15 @@ public class Player extends Humanoid implements Movable, Controllable{
 			characterImage= ImageIO.read(img);
 		}
 		catch(IOException e){System.out.print("fuck");}
+	}
+
+	@Override
+	public void update() {
+		move();
+		updateImage();
+		teleportCooldown--;
+		flinchCooldown--;
+		healCooldown--;
 	}
 
 	@Override
@@ -94,7 +103,6 @@ public class Player extends Humanoid implements Movable, Controllable{
 		return dirSpeed;
 	}
 
-	@Override
 	public void move() {
 		speedRight= set(movingRight,speedRight);
 		speedUp	  = set(movingUP,speedUp);
@@ -116,11 +124,6 @@ public class Player extends Humanoid implements Movable, Controllable{
 		if(this.y<0){
 			this.y = 0;
 		}
-
-		teleportCooldown--;
-		flinchCooldown--;
-		healCooldown--;
-		updateImage();
 	}
 
 	private void updateImage(){
@@ -163,10 +166,7 @@ public class Player extends Humanoid implements Movable, Controllable{
 	 * @param mouseY mouse y
 	 */
 	public Spell castSpell(int mouseX, int mouseY){
-
 		return new Spell((int)x,(int)y,mouseX, mouseY, Spell.FIREBALL);
-
-
 	}
 
 	public void teleport(int mouseX, int mouseY){
