@@ -1,12 +1,11 @@
-package interfaces;
+package effects;
 
 /**
  * ******************************
  * Project: ritual
  * Creator: Daniel Papanek
- * Date :   1/29/2016
+ * Date :   1/31/2016
  * ******************************
  **/
-public interface Movable {
-    void move();
+public class Effect {
 }

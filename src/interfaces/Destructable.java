@@ -11,6 +11,8 @@ import java.awt.*;
  **/
 public interface Destructable {
     void takeDamage(int damage);
-    void drawHealthBar(int health,Graphics2D g);
+
+    void drawHealthBar(int health, Graphics2D g);
+
     boolean isAlive();
 }

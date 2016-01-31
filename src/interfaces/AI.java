@@ -12,5 +12,6 @@ import beings.Summoner;
  **/
 public interface AI {
     void moveTo(Player p, Summoner s);
+
     void moveAway();
 }

@@ -27,12 +27,14 @@ public class Enemy extends Humanoid implements AI {
     public Enemy(int x, int y, int maxSpeed, String imgLoc) {
         super(x, y, maxSpeed);
         rand = new Random();
-        width = 40; height = 40;
+        width = 40;
+        height = 40;
         img = new File(imgLoc);
-        try{
-            characterImage= ImageIO.read(img);
+        try {
+            characterImage = ImageIO.read(img);
+        } catch (IOException e) {
+            System.out.print("enemyfuck");
         }
-        catch(IOException e){System.out.print("fuck");}
     }
 
     @Override
@@ -43,51 +45,51 @@ public class Enemy extends Humanoid implements AI {
 
     @Override
     public void draw(Graphics2D g) {
-        g.translate(x,y);
+        g.translate(x, y);
         super.drawHealthBar(health, g);
-        g.drawImage(characterImage,0,0,null);
-        g.translate(-x,-y);
+        g.drawImage(characterImage, 0, 0, null);
+        g.translate(-x, -y);
     }
 
     @Override
     public void moveAway() {
-        if(reboundTimer<0) {
-            speedY *= -rand.nextFloat()*1.5;
-            speedX *= rand.nextFloat()*1.5;
-            reboundTimer=100;
+        if (reboundTimer < 0) {
+            speedY *= -rand.nextFloat() * 1.5;
+            speedX *= rand.nextFloat() * 1.5;
+            reboundTimer = 100;
         }
     }
 
     @Override
     public void moveTo(Player p, Summoner s) {
-        if(p.getX()>x){
+        if (p.getX() > x) {
             speedX += speed;
-            if(speedX>maxSpeed){
-                speedX=maxSpeed;
-            }else if(speedX < 0){
-            	speedX += speed;
+            if (speedX > maxSpeed) {
+                speedX = maxSpeed;
+            } else if (speedX < 0) {
+                speedX += speed;
             }
         } else {
             speedX -= speed;
-            if(speedX<-maxSpeed){
+            if (speedX < -maxSpeed) {
                 speedX = -maxSpeed;
-            }else if(speedX > 0){
-            	speedX -= speed;
+            } else if (speedX > 0) {
+                speedX -= speed;
             }
         }
-        if(p.getY()>y){
+        if (p.getY() > y) {
             speedY += speed;
-            if(speedY>maxSpeed){
-                speedY=maxSpeed;
-            }else if(speedY < 0){
-            	speedY += speed;
+            if (speedY > maxSpeed) {
+                speedY = maxSpeed;
+            } else if (speedY < 0) {
+                speedY += speed;
             }
         } else {
             speedY -= speed;
-            if(speedY<-maxSpeed){
+            if (speedY < -maxSpeed) {
                 speedY = -maxSpeed;
-            }else if (speedY > 0){
-            	speedY -= speed;
+            } else if (speedY > 0) {
+                speedY -= speed;
             }
         }
     }

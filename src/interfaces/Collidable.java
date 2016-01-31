@@ -9,7 +9,10 @@ package interfaces;
  **/
 public interface Collidable {
     double getX();
+
     double getY();
+
     double getHeight();
+
     double getWidth();
 }
