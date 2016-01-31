@@ -1,6 +1,7 @@
 package map;
 
 import interfaces.Drawable;
+import objects.CollisionDetector;
 import objects.Enemy;
 import objects.Player;
 import objects.Summoner;
@@ -25,11 +26,13 @@ import java.util.LinkedList;
  * ******************************
  **/
 public class GameWorld extends JPanel implements MouseListener, KeyListener{
+    CollisionDetector detector;
     private LinkedList<Enemy> enemies;
     File img = new File("resource/background.png");
     BufferedImage characterImage, backgroundImg;
     private Player p;
     public GameWorld(int width, int height){
+        detector = new CollisionDetector();
         try{
             backgroundImg = ImageIO.read(img);
         }
@@ -48,7 +51,7 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
         while(true){
             moveEnemies();
             p.move();
-
+            detector.detectPlayerCollision(p,enemies);
             repaint();
 
             try {
@@ -131,7 +134,7 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
 
     @Override
     public void mouseClicked(MouseEvent e) {
-    	
+
     }
 
     @Override
