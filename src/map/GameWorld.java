@@ -41,6 +41,7 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
             enemies.add(new Enemy(10*i,10*i,100,1));
         }
         addKeyListener(this);
+        addMouseListener(this);
     };
 
     public void start () {
@@ -130,7 +131,10 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
+    	int mouseX = e.getX();
+    	int mouseY = e.getY();
+    	System.out.println(mouseX + " " + mouseY);
+    	p.castSpell(mouseX, mouseY);
     }
 
     @Override
