@@ -36,12 +36,12 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
         try{
             backgroundImg = ImageIO.read(img);
         }
-        catch(IOException e){System.out.print("fuck");}
+        catch(IOException e){System.out.print("");}
         characterImage = new BufferedImage(width,height, BufferedImage.TYPE_INT_RGB);
         p = new Player(10,10,10,2);
         enemies = new LinkedList<>();
-        for(int i = 0; i<1; i++){
-            enemies.add(new Enemy(10*i,22*i,100,1));
+        for(int i = 0; i<2; i++){
+            enemies.add(new Enemy(10*i,10*i,100,1));
         }
         addKeyListener(this);
         addMouseListener(this);
@@ -87,9 +87,8 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener{
 
     private void moveEnemies(){
         for(Enemy e : enemies){
-
-            //e.moveTo(p, new Summoner(10,10,10,10));
-            //e.move();
+            e.moveTo(p, new Summoner(10,10,10,10));
+            e.move();
         }
     }
 
