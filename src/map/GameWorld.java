@@ -5,6 +5,7 @@ import objects.Enemy;
 import objects.Player;
 import objects.Summoner;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -12,6 +13,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
 
 /**
@@ -23,12 +26,15 @@ import java.util.LinkedList;
  **/
 public class GameWorld extends JPanel implements MouseListener, KeyListener{
     private LinkedList<Enemy> enemies;
-
-
+    File img = new File("background.png");
     BufferedImage image;
 
     private Player p;
     public GameWorld(int width, int height){
+        try{
+            BufferedImage in = ImageIO.read(img);
+        }
+        catch(IOException e){}
         image = new BufferedImage(width,height, BufferedImage.TYPE_INT_RGB);
         p = new Player(10,10,10,2);
         enemies = new LinkedList<>();
