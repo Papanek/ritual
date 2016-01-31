@@ -24,16 +24,20 @@ public class Player extends Humanoid implements Movable, Controllable{
 	private final String PLAYER_UP = "resource/wizardupdownbigger.png";
 	private final String PLAYER_DOWN = "resource/wizardupdownbigger.png";
 
-	boolean movingUP = false, movingDown = false, movingLeft = false, movingRight = false;
+	private boolean movingUP = false, movingDown = false, movingLeft = false, movingRight = false;
 	private float speedUp=0, speedDown=0, speedLeft=0, speedRight=0;
-	private int maxSpeed = 2;
-	private float SPEED = .15f;
-	private float STOPSPEED = .1f;
+
+
+	private int 	maxSpeed  = 2;
+	private float 	SPEED 	  = .15f;
+	private float 	STOPSPEED = .1f;
 	File img;
 	BufferedImage characterImage;
+
 	private int teleportCooldown;
 	private int flinchCooldown;
 	private int healCooldown;
+
 	public Player(int x, int y, int maxSpeed) {
 		super(x, y, maxSpeed);
 		img = new File(PLAYER_RIGHT);
@@ -47,7 +51,6 @@ public class Player extends Humanoid implements Movable, Controllable{
 
 	@Override
 	public void draw(Graphics2D g) {
-		//g.setColor(Color.black);
 		g.translate(x,y);
 		super.drawHealthBar(health,g);
 		g.drawImage(characterImage,0,0,null);
