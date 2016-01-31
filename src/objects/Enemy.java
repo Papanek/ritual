@@ -52,6 +52,7 @@ public class Enemy extends Creature implements Movable, AI {
     public void moveAway() {
         if(reboundTimer<0) {
             speedY *= -rand.nextFloat()*2;
+            speedX *= rand.nextFloat();
             reboundTimer=100;
         }
     }
