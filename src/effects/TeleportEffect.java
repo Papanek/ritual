@@ -9,6 +9,6 @@ package effects;
  **/
 public class TeleportEffect extends Effect {
     public TeleportEffect(double x, double y) {
-        super(x, y, "resource/teleport.png");
+        super(x, y, "/images/teleport.png");
     }
 }

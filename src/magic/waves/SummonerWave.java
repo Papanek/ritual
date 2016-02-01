@@ -8,7 +8,7 @@ import interfaces.Collidable;
 public class SummonerWave extends Wave {
 
     public SummonerWave() {
-        super("resource/summonerwave.png");
+        super("/images/summonerwave.png");
         this.x = 300;
         this.y = 200;
         this.width = 200;

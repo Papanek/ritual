@@ -20,10 +20,10 @@ import java.io.IOException;
  * ******************************
  **/
 public class Player extends Humanoid implements Controllable {
-    private final String PLAYER_LEFT = "resource/wizardleftbigger.png";
-    private final String PLAYER_RIGHT = "resource/wizardrightbigger.png";
-    private final String PLAYER_UP = "resource/wizardup.png";
-    private final String PLAYER_DOWN = "resource/wizarddown.png";
+    private final String PLAYER_LEFT = "/images/wizardleftbigger.png";
+    private final String PLAYER_RIGHT = "/images/wizardrightbigger.png";
+    private final String PLAYER_UP = "/images/wizardup.png";
+    private final String PLAYER_DOWN = "/images/wizarddown.png";
 
     private boolean movingUP = false, movingDown = false, movingLeft = false, movingRight = false;
     private float speedUp = 0, speedDown = 0, speedLeft = 0, speedRight = 0;
@@ -32,7 +32,7 @@ public class Player extends Humanoid implements Controllable {
     private int maxSpeed = 2;
     private float SPEED = .15f;
     private float STOPSPEED = .1f;
-    File img;
+    String img;
     BufferedImage characterImage;
 
     private int flinchCooldown;
@@ -48,11 +48,11 @@ public class Player extends Humanoid implements Controllable {
         currentPrimarySpell = Spell.FIREBALL;
         currentSecondarySpell = Spell.TELEPORT;
 
-        img = new File(PLAYER_RIGHT);
+        img = PLAYER_RIGHT;
         height = 50;
         width = 50;
         try {
-            characterImage = ImageIO.read(img);
+            characterImage = ImageIO.read(this.getClass().getResourceAsStream(img));
         } catch (IOException e) {
             System.out.print("playerfuck");
         }
@@ -138,16 +138,16 @@ public class Player extends Humanoid implements Controllable {
 
     private void updateImage() {
         if (speedRight > 0) {
-            img = new File(PLAYER_RIGHT);
+            img = PLAYER_RIGHT;
         } else if (speedLeft > 0) {
-            img = new File(PLAYER_LEFT);
+            img = PLAYER_LEFT;
         } else if (speedUp > 0) {
-            img = new File(PLAYER_UP);
+            img = PLAYER_UP;
         } else if (speedDown > 0) {
-            img = new File(PLAYER_DOWN);
+            img = PLAYER_DOWN;
         }
         try {
-            characterImage = ImageIO.read(img);
+            characterImage = ImageIO.read(this.getClass().getResourceAsStream(img));
         } catch (IOException e) {
             System.out.print("playerfuck");
         }

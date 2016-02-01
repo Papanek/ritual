@@ -39,7 +39,7 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
     private LinkedList<Spell> spells;
     private LinkedList<Effect> effects;
     private boolean running;
-    File img = new File("resource/background.png");
+    ImageIcon img;
     BufferedImage characterImage, backgroundImg;
     private Player player;
     private Summoner summoner;
@@ -52,11 +52,15 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
         running = true;
         detector = new CollisionDetector();
         highScore = new HighScore();
+        //try {
         try {
-            backgroundImg = ImageIO.read(img);
+            backgroundImg = ImageIO.read(this.getClass().getResourceAsStream("/images/background.png"));
         } catch (IOException e) {
-            System.out.print("");
+            System.out.println("backgroundfuck");
         }
+        //} catch (IOException e) {
+            //System.out.print("");
+        //}
         characterImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         addKeyListener(this);
         addMouseListener(this);

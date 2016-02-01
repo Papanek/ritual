@@ -34,7 +34,7 @@ public abstract class Enemy extends Humanoid implements AI {
         height = 40;
         img = new File(imgLoc);
         try {
-            characterImage = ImageIO.read(img);
+            characterImage = ImageIO.read(this.getClass().getResourceAsStream("/images/enemybigger.png"));
         } catch (IOException e) {
             System.out.print("enemyfuck");
         }

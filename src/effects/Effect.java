@@ -21,14 +21,14 @@ import java.io.IOException;
 public abstract class Effect implements Drawable, Updatable {
     protected int timeTillRemove = 50;
     protected double x, y;
-    protected File img;
+    protected String img;
     protected BufferedImage effectImage;
     public Effect(double x, double y, String imgLoc) {
         this.x = x;
         this.y = y;
-        img = new File(imgLoc);
+        img = imgLoc;
         try {
-            effectImage = ImageIO.read(img);
+            effectImage = ImageIO.read(this.getClass().getResourceAsStream(img));
         } catch (IOException e) {
             System.out.print("spellfuck");
         }

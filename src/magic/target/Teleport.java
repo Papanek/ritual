@@ -13,7 +13,7 @@ import effects.TeleportEffect;
  **/
 public class Teleport extends TargetSpell {
     public Teleport(Player p, double mouseX, double mouseY) {
-        super(mouseX, mouseY, "resource/teleport.png");
+        super(mouseX, mouseY, "/images/teleport.png");
         super.effect = new TeleportEffect(p.getX(),p.getY());
         p.setX(mouseX);
         p.setY(mouseY);

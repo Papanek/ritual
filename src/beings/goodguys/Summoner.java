@@ -16,7 +16,7 @@ import java.util.ArrayList;
  */
 public class Summoner extends Humanoid {
 
-    File img = new File("resource/summonerbigger.png");
+    String img = "/images/summonerbigger.png";
     BufferedImage characterImage;
     ArrayList<Spell> spells = new ArrayList<>();
     private int flinchCooldown;
@@ -27,7 +27,7 @@ public class Summoner extends Humanoid {
         super(x, y, maxSpeed);
         currentPrimarySpell = Spell.SUMMONERWAVE;
         try {
-            characterImage = ImageIO.read(img);
+            characterImage = ImageIO.read(this.getClass().getResourceAsStream(img));
         } catch (IOException e) {
             System.out.print("summonerfuck");
         }

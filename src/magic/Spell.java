@@ -29,15 +29,15 @@ public abstract class Spell implements Drawable, Movable, Collidable, Updatable 
     protected float speedX;
     protected float speedY;
     protected int x, y, width = 1, height = 1;
-    protected File img;
+    protected String img;
     protected BufferedImage spellImage;
     protected int enemiesHit = 1;
     protected Effect effect;
 
     public Spell(String imgLoc) {
-        img = new File(imgLoc);
+        img = imgLoc;
         try {
-            spellImage = ImageIO.read(img);
+            spellImage = ImageIO.read(this.getClass().getResourceAsStream(img));
         } catch (IOException e) {
             System.out.print("spellfuck");
         }
