@@ -70,6 +70,7 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
             player.update();
             addEnemies();
             updateEnemies();
+            updateSummoner();
             updateSpells();
             updateEffects();
             updateScoring();
@@ -114,10 +115,10 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
         drawBackground(g);
-        drawSpells(g);
         drawCreatures(g);
         drawEffects(g);
         drawSummoner(g);
+        drawSpells(g);
         drawScoreTime(g);
         drawHighScore(g);
         _g.drawImage(characterImage, 0, 0, null);
@@ -208,6 +209,10 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
         highScore.update();
     }
 
+    private void updateSummoner(){
+        summoner.update();
+    }
+
     private void updateEnemies() {
         for (int i = 0; i < enemies.size(); i++) {
             Enemy e = enemies.get(i);
@@ -247,6 +252,11 @@ public class GameWorld extends JPanel implements MouseListener, KeyListener {
             player.move('D', false);
         } else if (e.getKeyCode() == KeyEvent.VK_D) {
             player.move('R', false);
+        } else if (e.getKeyCode() == KeyEvent.VK_SPACE){
+            Spell spell = summoner.castSpell();
+            if (spell != null) {
+                spells.add(spell);
+            }
         }
     }
 

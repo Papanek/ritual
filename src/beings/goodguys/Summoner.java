@@ -2,6 +2,7 @@ package beings.goodguys;
 
 import beings.Humanoid;
 import magic.Spell;
+import magic.waves.SummonerWave;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -19,9 +20,12 @@ public class Summoner extends Humanoid {
     BufferedImage characterImage;
     ArrayList<Spell> spells = new ArrayList<>();
     private int flinchCooldown;
+    private int currentSpellCooldown;
+    private int currentPrimarySpell;
 
     public Summoner(int x, int y, int maxSpeed) {
         super(x, y, maxSpeed);
+        currentPrimarySpell = Spell.SUMMONERWAVE;
         try {
             characterImage = ImageIO.read(img);
         } catch (IOException e) {
@@ -31,7 +35,7 @@ public class Summoner extends Humanoid {
 
     @Override
     public void update() {
-
+        currentSpellCooldown--;
     }
 
     @Override
@@ -53,5 +57,15 @@ public class Summoner extends Humanoid {
         if (health <= 0) {
             alive = false;
         }
+    }
+
+    public Spell castSpell() {
+        if (currentSpellCooldown <= 0) {
+            if (currentPrimarySpell == Spell.SUMMONERWAVE) {
+                currentSpellCooldown = 100;
+                return new SummonerWave();
+            }
+        }
+        return null;
     }
 }

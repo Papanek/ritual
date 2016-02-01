@@ -23,13 +23,15 @@ import java.io.IOException;
 public abstract class Spell implements Drawable, Movable, Collidable, Updatable {
     public static final int FIREBALL = 1;
     public static final int TELEPORT = 2;
+    public static final int SUMMONERWAVE = 3;
     protected int damage = 50;
-    protected int health = 1;
+    protected int timeToRemove = 50;
     protected float speedX;
     protected float speedY;
     protected int x, y, width = 1, height = 1;
     protected File img;
     protected BufferedImage spellImage;
+    protected int enemiesHit = 1;
     protected Effect effect;
 
     public Spell(String imgLoc) {
@@ -85,6 +87,13 @@ public abstract class Spell implements Drawable, Movable, Collidable, Updatable 
     public void move() {
         this.x += speedX;
         this.y += speedY;
+    }
+
+    public void takeDamage(){
+        this.enemiesHit--;
+        if(enemiesHit<1){
+            killSpell();
+        }
     }
 
     public boolean isInGameWorld() {

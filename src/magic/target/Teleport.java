@@ -18,13 +18,12 @@ public class Teleport extends TargetSpell {
         p.setX(mouseX);
         p.setY(mouseY);
         System.out.print("Tele");
-        health = 50;
     }
 
     @Override
     public void update() {
-        health--;
-        if(health<0){
+        timeToRemove--;
+        if(timeToRemove<0){
             killSpell();
         }
     }

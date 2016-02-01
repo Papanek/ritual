@@ -55,7 +55,7 @@ public class CollisionDetector {
                 enemy = e.get(j);
                 if (checkCollision(spell, enemy)) {
                     enemy.takeDamage(spell.getDamage());
-                    spell.killSpell();
+                    spell.takeDamage();
                 }
             }
         }
